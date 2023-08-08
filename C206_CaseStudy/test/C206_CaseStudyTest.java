@@ -10,11 +10,18 @@ public class C206_CaseStudyTest {
 	private ArrayList<PaymentMethod> paymentMethod = new ArrayList<PaymentMethod>();
 	private PaymentMethod py1;
 	private PaymentMethod py2;
+	
+	private ArrayList<Order> orderList;
+	private Order order1;
+	private Order order2 ;
 
 	@Before
 	public void setUp() throws Exception {
 		py1 = new PaymentMethod("John", "111222", 1234, "OCBC", "VISA");
 		py2 = new PaymentMethod("Marry", "222111", 4321, "DBS", "NETS");
+		
+		order1= new Order("OD25","Johnny","87459845");
+		order2= new Order("OD26","Lily","85478956");
 	}
 
 	@Test
@@ -82,6 +89,79 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that the remaining PaymentMethod is the correct one", py1, paymentMethod.get(0));
 		
 	}
+	
+	@Test
+	public void c206_testAddOrder() {
+		//fail("Not yet implemented"); 
+		assertNotNull("Test if there is valid Order arraylist to add to", orderList);
+		assertEquals("Test that the Order arraylist is empty.", 0, orderList.size());
+		//Given an empty list, after adding 1 item, the size of the list is 1
+		C206_CaseStudy.addNewOrder(orderList, order1);		
+		assertEquals("Test that the Order arraylist size is 1.", 1, orderList.size());
+		
+		// Add an item
+		C206_CaseStudy.addNewOrder(orderList, order2);
+		assertEquals("Test that the Camcorder arraylist size is now 2.", 2, orderList.size());
+		//The item just added is as same as the last item in the list
+		assertSame("Test that Order is added to the end of the list.", order2, orderList.get(1));
+
+		// Add an item that already exists in the list
+		C206_CaseStudy.addNewOrder(orderList, order2);
+		assertEquals("Test that the Order arraylist size is unchange.", 2, orderList.size());
+
+		// Add an item that has missing detail
+		Order od_missing = new Order("OD29", "", "96514485");
+		C206_CaseStudy.addNewOrder(orderList, od_missing);
+		assertEquals("Test that the Order arraylist size is unchange.", 2, orderList.size());
+		
+	}
+	@Test
+	public void c206_testRetrieveAllOrders() {
+		//Test Case 1
+		// Test if Item list is not null and empty
+		assertNotNull("Test if there is valid Order arraylist to add to", orderList);
+		assertEquals("Test that the Order arraylist is empty.", 0, orderList.size());
+		
+		// Attempt to retrieve the Order 
+		String allOrder= C206_CaseStudy.retrieveAllOrders(orderList);
+		String testOutput = "";
+		
+		// Test if the output is empty
+		assertEquals("Test that nothing is displayed", testOutput, allOrder);
+		
+		C206_CaseStudy.addNewOrder(orderList, order1);
+		C206_CaseStudy.addNewOrder(orderList, order2);
+		
+		// Test that the list is not empty
+		assertEquals("Test that Order arraylist size is 3.", 3, orderList.size());
+		
+		// Attempt to retrieve the Order 
+		allOrder= C206_CaseStudy.retrieveAllOrders(orderList);
+		testOutput = String.format("%-10s %-30s %-20s\n","OD25", "Johnny", "87459845");
+		testOutput += String.format("%-10s %-30s %-20s\n","OD26", "Lily", "85478956");
+		testOutput += String.format("%-10s %-30s %-20s\n","OD27", "Jane", "95487785");
+		
+		// Test that the details are displayed correctly
+		assertEquals("Test that the display is correct.", testOutput, allOrder);
+		
+		
+		//assertTrue("C206_CaseStudy_SampleTest ",true); 
+	}
+	//XUE NI
+	@Test
+	public void c206_testDeleteOrder() {
+		//Test Case 1 - Order delete successfully
+		assertNotNull("test if there is valid Order arraylist to loan from", orderList);
+		C206_CaseStudy.addNewOrder(orderList, order1);
+		Boolean delete = C206_CaseStudy.deleteOrder(orderList, "OD25" );
+		assertTrue("Test if an available order to delete?", delete);
+		
+		// Test Case 2 - Order not found
+		delete = C206_CaseStudy.deleteOrder(orderList, "OD33");
+		assertFalse("Test that the deletion fails.", delete);
+			
+		
+}
 
 	@After
 	public void tearDown() throws Exception {
