@@ -31,8 +31,7 @@ public class C206_CaseStudy {
 					C206_CaseStudy.viewAllOrders(orderList);
 
 				} else if (activity == 3) {
-					String id = inputOrderID();
-					// C206_CaseStudy.deleteOrder(orderList, id);
+					C206_CaseStudy.deleteOrder(orderList);
 				} else if (activity == 4) {
 					System.out.println("Bye");
 				}
@@ -179,25 +178,28 @@ public class C206_CaseStudy {
 
 	// XUENI------------------------DELETE AN EXSITING ORDER FROM
 	// ORDERLIST---------------------------------
-	public static String inputOrderID() {
-		String OrderID = Helper.readString("Enter Order ID > ");
-
-		return OrderID;
-	}
-
-	public static boolean deleteOrder(ArrayList<Order> orderList, Order OrderID) {
-		Order item;
+	public static boolean inputOrderID(ArrayList<Order> orderList, String OrderID) {
+		boolean isDeleted = false;
+		
 		for (int i = 0; i < orderList.size(); i++) {
-			item = orderList.get(i);
-			if (OrderID.equals(item.getOrderId())) {
+			if(OrderID.equalsIgnoreCase(orderList.get(i).getOrderId())) {
 				orderList.remove(i);
-				return true;
-
-			} else {
-				System.out.println("No order found");
+				isDeleted=true;
 			}
 		}
-		return false;
+		return isDeleted;
+	}
+
+	public static void deleteOrder(ArrayList<Order> orderList) {
+		C206_CaseStudy.viewAllOrders(orderList);
+		String OrderID = Helper.readString("Enter the Order ID you wish to delete > ");
+		Boolean isDeleted = inputOrderID(orderList,OrderID);
+		
+		if(isDeleted==false) {
+			System.out.println("No Order ID found.");
+		}else {
+			System.out.println("Order ID " + OrderID + " removed successfully!");
+	}
 	}
 
 }

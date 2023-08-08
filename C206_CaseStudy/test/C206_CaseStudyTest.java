@@ -159,20 +159,22 @@ public class C206_CaseStudyTest {
 	// XUE NI
 	@Test
 	public void c206_testDeleteOrder() {
-		// Test Case 1 - Order delete successfully
-		C206_CaseStudy.addNewOrder(orderList, order1);
-		C206_CaseStudy.addNewOrder(orderList, order2);
-		assertNotNull("test if there is valid Order arraylist to delete from", orderList);
+		// Test if the Order list is not null and empty 
+		assertNotNull("Test if there is valid Order arraylist to retrieve order from", orderList);
+		assertEquals("Test that the Order arraylist is empty.", 0, orderList.size());
 
-		/*
-		 * C206_CaseStudy.deleteOrder(orderList, order1.getOrderId()); Boolean delete =
-		 * C206_CaseStudy.deleteOrder(orderList, "OD25" );
-		 * assertTrue("Test if an available order to delete?", delete);
-		 * 
-		 * // Test Case 2 - Order not found delete =
-		 * C206_CaseStudy.deleteOrder(orderList, "OD33");
-		 * assertFalse("Test that the deletion fails.", delete);
-		 */
+		// Test that the list is not empty before deleting
+		C206_CaseStudy.addNewOrder(orderList,order1);
+		C206_CaseStudy.addNewOrder(orderList, order2);
+		assertEquals("Test that Order arraylist size is 2.", 2, orderList.size());
+		
+		// The size of the list decreases by one after deleting one order
+		C206_CaseStudy.inputOrderID(orderList, "OD25");
+		assertEquals("Test that Order arraylist size is 1", 1, orderList.size());
+
+		// Test the order not in the list is not deleted, the size of the list remains the same
+		C206_CaseStudy.inputOrderID(orderList, "OD99");
+		assertEquals("Test that the size of the list remain the same which is 1", 1, orderList.size());
 
 	}
 
