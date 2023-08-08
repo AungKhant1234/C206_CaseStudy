@@ -1,18 +1,25 @@
 import java.util.*;
+import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
 	private ArrayList<PaymentMethod> paymentInfo = new ArrayList<PaymentMethod>();
-	private static ArrayList<Order> orderList = new ArrayList<Order>();
-
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int option = 0;
+		ArrayList<Order> orderList = new ArrayList<Order>();
+		
+		orderList.add(new Order("OD25", "Johnny", "87459845"));
+		orderList.add(new Order("OD26", "Lily", "85478956"));
+		
+		int option = Helper.readInt("Enter an option to proceed > ");
+		
 		while (option != 6) {
 			if (option == 1) {
 			
 			} else if (option == 2) {
-				int activity = Helper.readInt("Enter an option > ");
+				int activity = Helper.readInt("Enter the value for Order > ");
 				
 				if(activity==1) {
 					Order od= inputOrder();
@@ -22,7 +29,10 @@ public class C206_CaseStudy {
 					C206_CaseStudy.viewAllOrders(orderList);
 					
 				}else if(activity==3) {
-					
+					String id = inputOrderID();
+					//C206_CaseStudy.deleteOrder(orderList, id);
+				}else if(activity==4) {
+					System.out.println("Bye");
 				}
 
 			} else if (option == 3) {
@@ -31,7 +41,7 @@ public class C206_CaseStudy {
 
 			} else if (option == 5) {
 				
-			} else {
+			}else if(option==6){
 				System.out.println("THANK YOU FOR USING OUR LUNCH BOX ORDERING SYSTEM");
 			}
 		}
@@ -80,26 +90,26 @@ public class C206_CaseStudy {
 	public static void deletePaymentMethod(ArrayList<PaymentMethod> paymentMethod, PaymentMethod py) {
 
 	}
-	// -------------------RETRIEVE ALL ORDER LIST FROM orderList IN ORDER TO VIEW IT-----------------------------------
+	// XUENI-------------------RETRIEVE ALL ORDER LIST FROM orderList IN ORDER TO VIEW IT-----------------------------------
 		public static String retrieveAllOrders(ArrayList<Order> orderList) {
 			String output = "";
 
 			for (int i = 0; i < orderList.size(); i++) {
-				output += String.format("%-10s %-20s %-20s %-30s\n", orderList.get(i).getOrderId(),
+				output += String.format("%-10s %-20s %-20s\n", orderList.get(i).getOrderId(),
 						orderList.get(i).getCustomerName(), orderList.get(i).getMobileNumber());
 			}
 			return output;
 		}
 
-		// -----------------------VIEW ALL ORDER FROM THE ORDERLIST----------------------------------------
+		// XUENI-----------------------VIEW ALL ORDER FROM THE ORDERLIST----------------------------------------
 		public static void viewAllOrders(ArrayList<Order> orderList) {
 			C206_CaseStudy.setHeader("ORDER LIST");
-			String output = String.format("%-10s %-20s %-20s %-30s\n", "ORDER ID", "CUSTOMER NAME", "MOBILE NUMBER", "ORDER DATE");
+			String output = String.format("%-10s %-20s %-20s \n", "ORDER ID", "CUSTOMER NAME", "MOBILE NUMBER");
 			output += retrieveAllOrders(orderList);
 			System.out.println(output);
 		}
 
-		// ----------------------ADD AN ORDER TO THE ORDERLIST--------------------------------------------------
+		// XUENI----------------------ADD AN ORDER TO THE ORDERLIST--------------------------------------------------
 		public static Order inputOrder() {
 			String OrderID = Helper.readString("Enter Order ID > ");
 			String customerName = Helper.readString("Enter Customer Name > ");
@@ -124,22 +134,24 @@ public class C206_CaseStudy {
 			orderList.add(OD);
 			System.out.println("Order Added");
 		}
-		//------------------------DELETE AN EXSITING ORDER FROM ORDERLIST---------------------------------
-		//public static Order inputOrderID() {
+		//XUENI------------------------DELETE AN EXSITING ORDER FROM ORDERLIST---------------------------------
+		public static String inputOrderID() {
 			String OrderID = Helper.readString("Enter Order ID > ");
 			
-			//
+			return OrderID;
+		}
 		
-		public static boolean deleteOrder(ArrayList<Order> orderList, String orderID) {
-
-			String id = Helper.readString("Enter Order ID > ");
+		
+		public static boolean deleteOrder(ArrayList<Order> orderList, Order OrderID) {
+			Order item;
 			for (int i = 0; i < orderList.size(); i++) {
-				if (id.equalsIgnoreCase(orderList.get(i).getOrderId())) {
+				item=orderList.get(i);
+				if (OrderID.equals(item.getOrderId())) {
 					orderList.remove(i);
-					return false;
+					return true;
+					
 				} else {
 					System.out.println("No order found");
-					return false;
 				}
 			}
 			return false;
