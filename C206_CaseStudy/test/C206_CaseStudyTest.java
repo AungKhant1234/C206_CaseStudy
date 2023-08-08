@@ -10,23 +10,23 @@ public class C206_CaseStudyTest {
 	private ArrayList<PaymentMethod> paymentMethod = new ArrayList<PaymentMethod>();
 	private PaymentMethod py1;
 	private PaymentMethod py2;
-	
+
 	private Order order1;
-	private Order order2 ;
+	private Order order2;
 	private ArrayList<Order> orderList;
 
 	@Before
 	public void setUp() throws Exception {
 		py1 = new PaymentMethod("John", "111222", 1234, "OCBC", "VISA");
 		py2 = new PaymentMethod("Marry", "222111", 4321, "DBS", "NETS");
-		
-		order1= new Order("OD25","Johnny","87459845");
-		order2= new Order("OD26","Lily","85478956");
+
+		order1 = new Order("OD25", "Johnny", "87459845");
+		order2 = new Order("OD26", "Lily", "85478956");
 		orderList = new ArrayList<Order>();
 	}
 
 	@Test
-	public void doAddPaymentMethod() {
+	public void testAddPaymentMethod() {
 		// Item list is not null, so that can add a new item - boundary
 		assertNotNull("Check if there is valid PaymentInfo arraylist to add to", paymentMethod);
 		// Given an empty list, after adding 1 item, the size of the list is 1 - normal
@@ -64,15 +64,15 @@ public class C206_CaseStudyTest {
 		// retrieved
 		// from the SourceCentre
 		allPaymentMethod = C206_CaseStudy.retrieveAllPaymentMethod(paymentMethod);
-		testOutput = String.format("%-10s %-30s %-10s %-10s %-20s\n", "CB0011", "My Google Chromebook 1st", "Yes", "",
-				"Mac OS");
-		testOutput += String.format("%-10s %-30s %-10s %-10s %-20s\n", "CB0012", "SAMSUNG Chromebook 4+", "Yes", "",
-				"Win 10");
+		testOutput = String.format("%-15s %-15s %-15d %-15s %-15s\n", "John", "111222", 1234, "OCBC", "VISA");
+		testOutput += String.format("%-15s %-15s %-15d %-15s %-15s\n", "Marry", "222111", 4321, "DBS", "NETS");
 		assertEquals("Test that ViewAllPaymentMethod", testOutput, allPaymentMethod);
 	}
 
 	@Test
 	public void testDeletePaymentMethod() {
+		PaymentMethod py3 = new PaymentMethod("Elle", "600800", 9876, "DBS", "VISA");
+
 		// Test if Item list is not null but empty - boundary
 		assertNotNull("Test if there is valid PaymentInfo arraylist to retrieve item from", paymentMethod);
 
@@ -81,29 +81,36 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addPaymentMethod(paymentMethod, py1);
 		C206_CaseStudy.addPaymentMethod(paymentMethod, py2);
 		assertEquals("Test that PaymentMethod arraylist size is 2", 2, paymentMethod.size());
-		
-		// Given a list with 2 items, test if the size of the list becomes 1 after deleting one - normal
+
+		// Given a list with 2 items, test if the size of the list becomes 1 after
+		// deleting one - normal
 		C206_CaseStudy.deletePaymentMethod(paymentMethod, py2);
 		assertEquals("Test that PaymentMethod arraylist size is 1", 1, paymentMethod.size());
-		
+
 		// Test if the remaining payment method is the one that wasn't deleted - normal
 		assertEquals("Test that the remaining PaymentMethod is the correct one", py1, paymentMethod.get(0));
-		
+
+		// Given an payment method which isn't in the list, Test if the size of the list
+		// changes.
+		C206_CaseStudy.deletePaymentMethod(paymentMethod, py3);
+		assertEquals("Test that the size of the list remain the same (1)", 1, paymentMethod.size());
+
 	}
-	//XUE NI
+
+	// XUE NI
 	@Test
 	public void c206_testAddOrder() {
-		//fail("Not yet implemented"); 
+		// fail("Not yet implemented");
 		assertNotNull("Test if there is valid Order arraylist to add to", orderList);
 		assertEquals("Test that the Order arraylist is empty.", 0, orderList.size());
-		//Given an empty list, after adding 1 item, the size of the list is 1
+		// Given an empty list, after adding 1 item, the size of the list is 1
 		C206_CaseStudy.addNewOrder(orderList, order1);
 		assertEquals("Test that the Order arraylist size is 1.", 1, orderList.size());
-		
+
 		// Add an item
 		C206_CaseStudy.addNewOrder(orderList, order2);
 		assertEquals("Test that the Camcorder arraylist size is now 2.", 2, orderList.size());
-		//The item just added is as same as the last item in the list
+		// The item just added is as same as the last item in the list
 		assertSame("Test that Order is added to the end of the list.", order2, orderList.get(1));
 
 		// Add an item that already exists in the list
@@ -114,63 +121,69 @@ public class C206_CaseStudyTest {
 		Order od_missing = new Order("OD29", "", "96514485");
 		C206_CaseStudy.addNewOrder(orderList, od_missing);
 		assertEquals("Test that the Order arraylist size is unchange.", 2, orderList.size());
-		
+
 	}
-	//XUE NI
+
+	// XUE NI
 	@Test
 	public void c206_testRetrieveAllOrders() {
-		//Test Case 1
+		// Test Case 1
 		// Test if Item list is not null and empty
 		assertNotNull("Test if there is valid Order arraylist to add to", orderList);
 		assertEquals("Test that the Order arraylist is empty.", 0, orderList.size());
-		
-		// Attempt to retrieve the Order 
-		String allOrder= C206_CaseStudy.retrieveAllOrders(orderList);
+
+		// Attempt to retrieve the Order
+		String allOrder = C206_CaseStudy.retrieveAllOrders(orderList);
 		String testOutput = "";
-		
+
 		// Test if the output is empty
 		assertEquals("Test that nothing is displayed", testOutput, allOrder);
-		
+
 		C206_CaseStudy.addNewOrder(orderList, order1);
 		C206_CaseStudy.addNewOrder(orderList, order2);
-		
+
 		// Test that the list is not empty
 		assertEquals("Test that Order arraylist size is 2.", 2, orderList.size());
-		
-		// Attempt to retrieve the Order 
-		allOrder= C206_CaseStudy.retrieveAllOrders(orderList);
-		testOutput = String.format("%-10s %-30s %-20s\n","OD25", "Johnny", "87459845");
-		testOutput += String.format("%-10s %-30s %-20s\n","OD26", "Lily", "85478956");
-		
+
+		// Attempt to retrieve the Order
+		allOrder = C206_CaseStudy.retrieveAllOrders(orderList);
+		testOutput = String.format("%-10s %-30s %-20s\n", "OD25", "Johnny", "87459845");
+		testOutput += String.format("%-10s %-30s %-20s\n", "OD26", "Lily", "85478956");
+
 		// Test that the details are displayed correctly
 		assertEquals("Test that the display is correct.", testOutput, allOrder);
-		
-		
-		//assertTrue("C206_CaseStudy_SampleTest ",true); 
+
+		// assertTrue("C206_CaseStudy_SampleTest ",true);
 	}
-	//XUE NI
+
+	// XUE NI
 	@Test
 	public void c206_testDeleteOrder() {
-		//Test Case 1 - Order delete successfully
+		// Test Case 1 - Order delete successfully
 		C206_CaseStudy.addNewOrder(orderList, order1);
 		C206_CaseStudy.addNewOrder(orderList, order2);
 		assertNotNull("test if there is valid Order arraylist to delete from", orderList);
-		
-		/*C206_CaseStudy.deleteOrder(orderList, order1.getOrderId());
-		Boolean delete = C206_CaseStudy.deleteOrder(orderList, "OD25" );
-		assertTrue("Test if an available order to delete?", delete);
-		
-		// Test Case 2 - Order not found
-		delete = C206_CaseStudy.deleteOrder(orderList, "OD33");
-		assertFalse("Test that the deletion fails.", delete);
-		*/
-		
-}
+
+		/*
+		 * C206_CaseStudy.deleteOrder(orderList, order1.getOrderId()); Boolean delete =
+		 * C206_CaseStudy.deleteOrder(orderList, "OD25" );
+		 * assertTrue("Test if an available order to delete?", delete);
+		 * 
+		 * // Test Case 2 - Order not found delete =
+		 * C206_CaseStudy.deleteOrder(orderList, "OD33");
+		 * assertFalse("Test that the deletion fails.", delete);
+		 */
+
+	}
 
 	@After
 	public void tearDown() throws Exception {
 		py1 = null;
 		py2 = null;
 		paymentMethod.clear();
+
+		order1 = null;
+		order2 = null;
+		orderList.clear();
 	}
 }
