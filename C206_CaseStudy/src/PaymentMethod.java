@@ -3,7 +3,7 @@ public class PaymentMethod {
 
 	private String cardHolder;
 	private String postalCode;
-	private int last4Digit = 0;
+	private int last4Digit;
 	private String bankName;
 	private String cardType;
 	

@@ -24,24 +24,43 @@ public class C206_CaseStudyTest {
 		order2 = new Order("OD26", "Lily", "85478956");
 		orderList = new ArrayList<Order>();
 	}
-
+	//Aung 
 	@Test
 	public void testAddPaymentMethod() {
-		// Item list is not null, so that can add a new item - boundary
+		// Item list is not null, so that can add a new payment method - boundary
 		assertNotNull("Check if there is valid PaymentInfo arraylist to add to", paymentMethod);
-		// Given an empty list, after adding 1 item, the size of the list is 1 - normal
-		// The item just added is as same as the first item of the list
+		// Given an empty list, after adding 1 payment method, the size of the list is 1 - normal
+		// The payment method just added is as same as the first item of the list
 		C206_CaseStudy.addPaymentMethod(paymentMethod, py1);
 		assertEquals("Check that PaymentInfo arraylist size is 1", 1, paymentMethod.size());
 		assertSame("Check that PaymentInfo is added", py1, paymentMethod.get(0));
 
-		// Add another item. test The size of the list is 2? -normal
+		// Add another payment method. test The size of the list is 2? -normal
 		// The item just added is as same as the second item of the list
 		C206_CaseStudy.addPaymentMethod(paymentMethod, py2);
 		assertEquals("Check that PaymentInfo arraylist size is 2", 2, paymentMethod.size());
 		assertSame("Check that PaymentInfo is added", py2, paymentMethod.get(1));
+		
+		// Add a payment method with missing information.
+		// Test that the size of the list is unchanged. - error
+		PaymentMethod py3 = new PaymentMethod("Elle", "", 9876, "DBS", "VISA");
+		C206_CaseStudy.addPaymentMethod(paymentMethod, py3);
+		assertEquals("Check that PaymentInfo arraylist size is 2", 2, paymentMethod.size());
+		
+		// Add a payment method which is with same card holder. ( 1 user can have multiple payment methods )
+		// The payment method is added and the size of the list changed. - normal
+		
+		PaymentMethod py4 = new PaymentMethod("John", "111222", 9875, "DBS", "MASTER");
+		C206_CaseStudy.addPaymentMethod(paymentMethod, py4);
+		assertEquals("Check that PaymentInfo arraylist size is 3", 3, paymentMethod.size());
+		
+		// Add a payment method that already exists in the list. 
+		// Test that the size of the list remains the same. - error
+		C206_CaseStudy.addPaymentMethod(paymentMethod, py1);
+		assertEquals("Check that PaymentInfo arraylist size is 3", 3, paymentMethod.size());
+		
 	}
-
+	//Aung 
 	@Test
 	public void testRetrieveAllPaymentMethod() {
 		// fail("Not yet implemented");
@@ -68,13 +87,13 @@ public class C206_CaseStudyTest {
 		testOutput += String.format("%-15s %-15s %-15d %-15s %-15s\n", "Marry", "222111", 4321, "DBS", "NETS");
 		assertEquals("Test that ViewAllPaymentMethod", testOutput, allPaymentMethod);
 	}
-
+	//Aung 
 	@Test
 	public void testDeletePaymentMethod() {
 		PaymentMethod py3 = new PaymentMethod("Elle", "600800", 9876, "DBS", "VISA");
 
 		// Test if Item list is not null but empty - boundary
-		assertNotNull("Test if there is valid PaymentInfo arraylist to retrieve item from", paymentMethod);
+		assertNotNull("Test if there is valid PaymentInfo arraylist to delete item from", paymentMethod);
 
 		// Given an empty list, after adding 2 items, test if the size of the list is 2
 		// - normal
@@ -90,8 +109,8 @@ public class C206_CaseStudyTest {
 		// Test if the remaining payment method is the one that wasn't deleted - normal
 		assertEquals("Test that the remaining PaymentMethod is the correct one", py1, paymentMethod.get(0));
 
-		// Given an payment method which isn't in the list, Test if the size of the list
-		// changes.
+		// Given a payment method which isn't in the list, 
+		// Test if the size of the list doesn't change and remain the same.
 		C206_CaseStudy.deletePaymentMethod(paymentMethod, py3);
 		assertEquals("Test that the size of the list remain the same (1)", 1, paymentMethod.size());
 
