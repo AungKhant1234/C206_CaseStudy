@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class C206_CaseStudy {
 
 	private static ArrayList<PaymentMethod> paymentMethod = new ArrayList<PaymentMethod>();
+	private static ArrayList<Order> orderList = new ArrayList<Order>();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -11,10 +12,9 @@ public class C206_CaseStudy {
 		paymentMethod.add(new PaymentMethod("Lily", "700300", 3232, "POSB", "MASTER"));
 		paymentMethod.add(new PaymentMethod("Johnny", "100200", 5678, "UOB", "CREDIT CARD"));
 
-		ArrayList<Order> orderList = new ArrayList<Order>();
-
-		orderList.add(new Order("OD25", "Johnny", "87459845"));
-		orderList.add(new Order("OD26", "Lily", "85478956"));
+		orderList.add(new Order("OD25", "Johnny", "87459845","2"));
+		orderList.add(new Order("OD26", "Lily", "85478956","1"));
+		
 		int option = 0;
 		while (option != 6) {
 			menu();
@@ -23,23 +23,11 @@ public class C206_CaseStudy {
 			if (option == 1) {
 
 			} else if (option == 2) {
-				int activity = Helper.readInt("Enter the value for Order > ");
-
-				if (activity == 1) {
-					Order od = inputOrder();
-					C206_CaseStudy.addNewOrder(orderList, od);
-
-				} else if (activity == 2) {
-					C206_CaseStudy.viewAllOrders(orderList);
-
-				} else if (activity == 3) {
-					C206_CaseStudy.deleteOrder(orderList);
-				} else if (activity == 4) {
-					System.out.println("Bye");
-				}
+				orderOptions();
 
 			} else if (option == 3) {
 				paymentMethodOptions();
+				
 			} else if (option == 4) {
 
 			} else if (option == 5) {
@@ -60,7 +48,7 @@ public class C206_CaseStudy {
 	public static void menu() {
 		setHeader("SHCOOL LUNCH BOX ONINE ORDERING SYSTEM");
 		System.out.println("1. ");
-		System.out.println("2. ");
+		System.out.println("2. ORDER OPTIONS ");
 		System.out.println("3. PAYMENT METHOD OPTIONS");
 		System.out.println("4. ");
 		System.out.println("5. ");
@@ -182,6 +170,42 @@ public class C206_CaseStudy {
 			}
 		}
 	}
+	// XUENI --------- A method created to handle everything related to
+		// Orders (ADD/ VIEW/ DELETE)
+		public static void orderOptions() {
+			int option = 0;
+			while (option != 4) {
+				orderMenu();
+				option = Helper.readInt("Enter an option to proceed > ");
+				System.out.println("");
+
+				if (option == 1) {
+					Order od = inputOrder();
+					addNewOrder(orderList, od);
+
+				} else if (option == 2) {
+					viewAllOrders(orderList);
+
+				} else if (option == 3) {
+					deleteOrder(orderList);
+					
+				} else if (option == 4) {
+					System.out.println("RETURNING TO MAIN MENU");
+				}else {
+					System.out.println("INVALID OPTION. PLEASE CHOOSE AGAIN!\n");
+				}
+			}
+		}
+
+		// XUENI --------- Menu Created for Payment Method Options ------
+		public static void orderMenu() {
+			setHeader("OPTIONS FOR ORDER");
+			System.out.println("1. ADD A NEW ORDER ");
+			System.out.println("2. VIEW ALL ORDERS ");
+			System.out.println("3. DELETE AN EXISTING ORDERS ");
+			System.out.println("4. RETURN TO MAIN MENU");
+			Helper.line(80, "-");
+		}
 
 	// XUENI-------------------RETRIEVE ALL ORDER LIST FROM orderList IN ORDER TO
 	// VIEW IT-----------------------------------
@@ -189,8 +213,8 @@ public class C206_CaseStudy {
 		String output = "";
 
 		for (int i = 0; i < orderList.size(); i++) {
-			output += String.format("%-10s %-20s %-20s\n", orderList.get(i).getOrderId(),
-					orderList.get(i).getCustomerName(), orderList.get(i).getMobileNumber());
+			output += String.format("%-10s %-20s %-20s %-10s\n", orderList.get(i).getOrderId(),
+					orderList.get(i).getCustomerName(), orderList.get(i).getMobileNumber(), orderList.get(i).getquantity());
 		}
 		return output;
 	}
@@ -199,7 +223,7 @@ public class C206_CaseStudy {
 	// ORDERLIST----------------------------------------
 	public static void viewAllOrders(ArrayList<Order> orderList) {
 		C206_CaseStudy.setHeader("ORDER LIST");
-		String output = String.format("%-10s %-20s %-20s \n", "ORDER ID", "CUSTOMER NAME", "MOBILE NUMBER");
+		String output = String.format("%-10s %-20s %-20s %-10s\n", "ORDER ID", "CUSTOMER NAME", "MOBILE NUMBER", "QUANTITY");
 		output += retrieveAllOrders(orderList);
 		System.out.println(output);
 	}
@@ -210,8 +234,9 @@ public class C206_CaseStudy {
 		String OrderID = Helper.readString("Enter Order ID > ");
 		String customerName = Helper.readString("Enter Customer Name > ");
 		String mobileNo = Helper.readString("Enter Mobile Number > ");
+		String quantity = Helper.readString("Enter the Quantity > ");
 
-		Order OD = new Order(OrderID, customerName, mobileNo);
+		Order OD = new Order(OrderID, customerName, mobileNo, quantity);
 		return OD;
 
 	}
@@ -228,7 +253,7 @@ public class C206_CaseStudy {
 		}
 
 		orderList.add(OD);
-		System.out.println("Order Added");
+		System.out.println("ORDER ADDED SUCCESSFULLY!");
 	}
 
 	// XUENI------------------------DELETE AN EXSITING ORDER FROM
@@ -252,6 +277,7 @@ public class C206_CaseStudy {
 
 		if (isDeleted == false) {
 			System.out.println("No Order ID found.");
+			
 		} else {
 			System.out.println("Order ID " + OrderID + " removed successfully!");
 		}

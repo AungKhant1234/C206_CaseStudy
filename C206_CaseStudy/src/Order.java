@@ -3,11 +3,13 @@ public class Order {
 	private String OrderId;
 	private String customerName;
 	private String mobileNumber;
+	private String quantity;
 
-	public Order(String OrderId, String customerName, String mobileNumber) {
+	public Order(String OrderId, String customerName, String mobileNumber, String quantity) {
 		this.OrderId = OrderId;
 		this.customerName=customerName;
 		this.mobileNumber=mobileNumber;
+		this.quantity=quantity;
 	}
 	
 	public String getOrderId() {
@@ -34,6 +36,13 @@ public class Order {
 		this.mobileNumber = mobileNumber;
 	}
 	
+	public String getquantity() {
+		return quantity;
+	}
+	
+	public void setquantity(String quantity) {
+		this.quantity=quantity;
+	}
 
 	public String toString(){
 		String output = "";

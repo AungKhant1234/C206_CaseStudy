@@ -20,8 +20,8 @@ public class C206_CaseStudyTest {
 		py1 = new PaymentMethod("John", "111222", 1234, "OCBC", "VISA");
 		py2 = new PaymentMethod("Marry", "222111", 4321, "DBS", "NETS");
 
-		order1 = new Order("OD25", "Johnny", "87459845");
-		order2 = new Order("OD26", "Lily", "85478956");
+		order1 = new Order("OD25", "Johnny", "87459845", "2");
+		order2 = new Order("OD26", "Lily", "85478956", "1");
 		orderList = new ArrayList<Order>();
 	}
 	//Aung 
@@ -137,7 +137,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that the Order arraylist size is unchange.", 2, orderList.size());
 
 		// Add an item that has missing detail
-		Order od_missing = new Order("OD29", "", "96514485");
+		Order od_missing = new Order("OD29", "", "96514485","2");
 		C206_CaseStudy.addNewOrder(orderList, od_missing);
 		assertEquals("Test that the Order arraylist size is unchange.", 2, orderList.size());
 
@@ -166,8 +166,8 @@ public class C206_CaseStudyTest {
 
 		// Attempt to retrieve the Order
 		allOrder = C206_CaseStudy.retrieveAllOrders(orderList);
-		testOutput = String.format("%-10s %-30s %-20s\n", "OD25", "Johnny", "87459845");
-		testOutput += String.format("%-10s %-30s %-20s\n", "OD26", "Lily", "85478956");
+		testOutput = String.format("%-10s %-20s %-20s %-10s\n", "OD25", "Johnny", "87459845", "2");
+		testOutput += String.format("%-10s %-20s %-20s %-10s\n", "OD26", "Lily", "85478956", "1");
 
 		// Test that the details are displayed correctly
 		assertEquals("Test that the display is correct.", testOutput, allOrder);
