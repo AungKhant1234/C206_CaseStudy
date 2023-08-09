@@ -153,7 +153,7 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
-	// Aung -------------------- Delete Payment Method from paymentMethod List
+	// Aung ------------ Ask user for the payment method to delete
 	public static PaymentMethod askForDelete(ArrayList<PaymentMethod> paymentMethod) {
 		int last4Digit = Helper.readInt("Enter last 4 digit of the card you want to delete > ");
 		for (PaymentMethod p : paymentMethod) {
