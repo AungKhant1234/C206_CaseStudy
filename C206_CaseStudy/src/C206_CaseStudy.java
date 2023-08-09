@@ -1,9 +1,9 @@
-import java.util.*;
 import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
 	private static ArrayList<PaymentMethod> paymentMethod = new ArrayList<PaymentMethod>();
+	private static final int OPTION_PAYMENT = 3;
 	private static ArrayList<Order> orderList = new ArrayList<Order>();
 
 	public static void main(String[] args) {
@@ -12,12 +12,12 @@ public class C206_CaseStudy {
 		paymentMethod.add(new PaymentMethod("Lily", "700300", 3232, "POSB", "MASTER"));
 		paymentMethod.add(new PaymentMethod("Johnny", "100200", 5678, "UOB", "CREDIT CARD"));
 
-		orderList.add(new Order("OD25", "Johnny", "87459845","2"));
-		orderList.add(new Order("OD26", "Lily", "85478956","1"));
-		
+		orderList.add(new Order("OD25", "Johnny", "87459845", "2"));
+		orderList.add(new Order("OD26", "Lily", "85478956", "1"));
+
 		int option = 0;
 		while (option != 6) {
-			menu();
+			mainMenu();
 			option = Helper.readInt("Enter an option to proceed > ");
 			System.out.println("");
 			if (option == 1) {
@@ -25,9 +25,9 @@ public class C206_CaseStudy {
 			} else if (option == 2) {
 				orderOptions();
 
-			} else if (option == 3) {
+			} else if (option == OPTION_PAYMENT) {
 				paymentMethodOptions();
-				
+
 			} else if (option == 4) {
 
 			} else if (option == 5) {
@@ -45,7 +45,7 @@ public class C206_CaseStudy {
 		Helper.line(80, "-");
 	}
 
-	public static void menu() {
+	public static void mainMenu() {
 		setHeader("SHCOOL LUNCH BOX ONINE ORDERING SYSTEM");
 		System.out.println("1. ");
 		System.out.println("2. ORDER OPTIONS ");
@@ -61,20 +61,24 @@ public class C206_CaseStudy {
 	// Payment Methods (ADD/ VIEW/ DELETE)
 	public static void paymentMethodOptions() {
 		int option = 0;
-		while (option != 4) {
+		final int OPTION_ADD = 1;
+		final int OPTION_VIEW = 2;
+		final int OPTION_DELETE = 3;
+		final int OPTION_QUIT = 4;
+		while (option != OPTION_QUIT) {
 			paymentMenu();
 			option = Helper.readInt("Enter an option to proceed > ");
 			System.out.println("");
 
-			if (option == 1) {
+			if (option == OPTION_ADD) {
 				PaymentMethod py = inputPaymentMethod();
 				addPaymentMethod(paymentMethod, py);
-			} else if (option == 2) {
+			} else if (option == OPTION_VIEW) {
 				viewAllPaymentMethod(paymentMethod);
-			} else if (option == 3) {
+			} else if (option == OPTION_DELETE) {
 				PaymentMethod py = askForDelete(paymentMethod);
 				deletePaymentMethod(paymentMethod, py);
-			} else if (option == 4) {
+			} else if (option == OPTION_QUIT) {
 				System.out.println("RETURNING TO MAIN MENU!");
 			} else {
 				System.out.println("INVALID OPTION. PLEASE CHOOSE AGAIN!\n");
@@ -107,21 +111,24 @@ public class C206_CaseStudy {
 	}
 
 	// Aung -------------------- Add new Payment Method to paymentMethod List
-	public static void addPaymentMethod(ArrayList<PaymentMethod> paymentMethod, PaymentMethod py) {
-		PaymentMethod payment;
-		for (int i = 0; i < paymentMethod.size(); i++) {
-			payment = paymentMethod.get(i);
-			if (payment.getLast4Digit() == py.getLast4Digit()) {
+	public static void addPaymentMethod(ArrayList<PaymentMethod> paymentMethodList, PaymentMethod py) {
+		int last4Digit = py.getLast4Digit();
+		String cardHolder = py.getCardHolder();
+		String bankName = py.getBankName();
+		String cardType = py.getCardType();
+		String postalCode = py.getPostalCode();
+		for (PaymentMethod payment : paymentMethodList) {
+			if (payment.getLast4Digit() == last4Digit) {
 				System.out.println("This payment method already exists in the system.\n");
 				return;
 			}
 		}
-		if (py.getCardHolder().isEmpty() || py.getBankName().isEmpty() || py.getCardType().isEmpty()
-				|| py.getPostalCode().isEmpty() || (py.getLast4Digit() == 0)) {
+		if (cardHolder.isEmpty() || bankName.isEmpty() || cardType.isEmpty() || postalCode.isEmpty()
+				|| (last4Digit == 0)) {
 			System.out.println("There are missing informations.\nPlease make sure to fill out everything!\n");
 			return;
 		}
-		paymentMethod.add(py);
+		paymentMethodList.add(py);
 		System.out.println("PAYMENT METHOD SUCCESSFULLY ADDED!\n");
 	}
 
@@ -154,7 +161,6 @@ public class C206_CaseStudy {
 				return p;
 			}
 		}
-		System.out.println("This payment method doesn't exist in the system!\n");
 		return null;
 	}
 
@@ -162,50 +168,54 @@ public class C206_CaseStudy {
 	public static void deletePaymentMethod(ArrayList<PaymentMethod> paymentMethod, PaymentMethod py) {
 		if (py != null) {
 			for (PaymentMethod p : paymentMethod) {
-				if (p.getLast4Digit() == py.getLast4Digit()) {
+				int last4Digit = py.getLast4Digit();
+				if (p.getLast4Digit() == last4Digit) {
 					paymentMethod.remove(p);
 					System.out.println("PAYMENT METHOD SUCCESSFULLY DELETED!\n");
-					break;
+					return;
 				}
+			}
+		}
+		System.out.println("This payment method doesn't exist in the system!\n");
+
+	}
+
+	// XUENI --------- A method created to handle everything related to
+	// Orders (ADD/ VIEW/ DELETE)
+	public static void orderOptions() {
+		int option = 0;
+		while (option != 4) {
+			orderMenu();
+			option = Helper.readInt("Enter an option to proceed > ");
+			System.out.println("");
+
+			if (option == 1) {
+				Order od = inputOrder();
+				addNewOrder(orderList, od);
+
+			} else if (option == 2) {
+				viewAllOrders(orderList);
+
+			} else if (option == 3) {
+				deleteOrder(orderList);
+
+			} else if (option == 4) {
+				System.out.println("RETURNING TO MAIN MENU");
+			} else {
+				System.out.println("INVALID OPTION. PLEASE CHOOSE AGAIN!\n");
 			}
 		}
 	}
-	// XUENI --------- A method created to handle everything related to
-		// Orders (ADD/ VIEW/ DELETE)
-		public static void orderOptions() {
-			int option = 0;
-			while (option != 4) {
-				orderMenu();
-				option = Helper.readInt("Enter an option to proceed > ");
-				System.out.println("");
 
-				if (option == 1) {
-					Order od = inputOrder();
-					addNewOrder(orderList, od);
-
-				} else if (option == 2) {
-					viewAllOrders(orderList);
-
-				} else if (option == 3) {
-					deleteOrder(orderList);
-					
-				} else if (option == 4) {
-					System.out.println("RETURNING TO MAIN MENU");
-				}else {
-					System.out.println("INVALID OPTION. PLEASE CHOOSE AGAIN!\n");
-				}
-			}
-		}
-
-		// XUENI --------- Menu Created for Payment Method Options ------
-		public static void orderMenu() {
-			setHeader("OPTIONS FOR ORDER");
-			System.out.println("1. ADD A NEW ORDER ");
-			System.out.println("2. VIEW ALL ORDERS ");
-			System.out.println("3. DELETE AN EXISTING ORDERS ");
-			System.out.println("4. RETURN TO MAIN MENU");
-			Helper.line(80, "-");
-		}
+	// XUENI --------- Menu Created for Payment Method Options ------
+	public static void orderMenu() {
+		setHeader("OPTIONS FOR ORDER");
+		System.out.println("1. ADD A NEW ORDER ");
+		System.out.println("2. VIEW ALL ORDERS ");
+		System.out.println("3. DELETE AN EXISTING ORDERS ");
+		System.out.println("4. RETURN TO MAIN MENU");
+		Helper.line(80, "-");
+	}
 
 	// XUENI-------------------RETRIEVE ALL ORDER LIST FROM orderList IN ORDER TO
 	// VIEW IT-----------------------------------
@@ -214,7 +224,8 @@ public class C206_CaseStudy {
 
 		for (int i = 0; i < orderList.size(); i++) {
 			output += String.format("%-10s %-20s %-20s %-10s\n", orderList.get(i).getOrderId(),
-					orderList.get(i).getCustomerName(), orderList.get(i).getMobileNumber(), orderList.get(i).getquantity());
+					orderList.get(i).getCustomerName(), orderList.get(i).getMobileNumber(),
+					orderList.get(i).getquantity());
 		}
 		return output;
 	}
@@ -223,7 +234,8 @@ public class C206_CaseStudy {
 	// ORDERLIST----------------------------------------
 	public static void viewAllOrders(ArrayList<Order> orderList) {
 		C206_CaseStudy.setHeader("ORDER LIST");
-		String output = String.format("%-10s %-20s %-20s %-10s\n", "ORDER ID", "CUSTOMER NAME", "MOBILE NUMBER", "QUANTITY");
+		String output = String.format("%-10s %-20s %-20s %-10s\n", "ORDER ID", "CUSTOMER NAME", "MOBILE NUMBER",
+				"QUANTITY");
 		output += retrieveAllOrders(orderList);
 		System.out.println(output);
 	}
@@ -277,7 +289,7 @@ public class C206_CaseStudy {
 
 		if (isDeleted == false) {
 			System.out.println("No Order ID found.");
-			
+
 		} else {
 			System.out.println("Order ID " + OrderID + " removed successfully!");
 		}
