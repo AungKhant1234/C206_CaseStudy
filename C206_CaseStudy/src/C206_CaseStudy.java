@@ -2,9 +2,12 @@ import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
+	private static final int OPTION_USER = 1;
 	private static ArrayList<PaymentMethod> paymentMethod = new ArrayList<PaymentMethod>();
 	private static final int OPTION_PAYMENT = 3;
 	private static ArrayList<Order> orderList = new ArrayList<Order>();
+
+	private static ArrayList<User> UserList = new ArrayList<User>();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -15,13 +18,16 @@ public class C206_CaseStudy {
 		orderList.add(new Order("OD25", "Johnny", "87459845", "2"));
 		orderList.add(new Order("OD26", "Lily", "85478956", "1"));
 
+		UserList.add(new User("760001", "Johnny", "87459845", "Johnny123@gmail.com"));
+		UserList.add(new User("760002", "Lily", "85478956", "Lily123@gmail.com"));
+
 		int option = 0;
 		while (option != 6) {
 			mainMenu();
 			option = Helper.readInt("Enter an option to proceed > ");
 			System.out.println("");
-			if (option == 1) {
-
+			if (option == OPTION_USER) {
+				UserOptions();
 			} else if (option == 2) {
 				orderOptions();
 
@@ -47,7 +53,7 @@ public class C206_CaseStudy {
 
 	public static void mainMenu() {
 		setHeader("SHCOOL LUNCH BOX ONINE ORDERING SYSTEM");
-		System.out.println("1. ");
+		System.out.println("1. USERS OPTIONS");
 		System.out.println("2. ORDER OPTIONS ");
 		System.out.println("3. PAYMENT METHOD OPTIONS");
 		System.out.println("4. ");
@@ -207,7 +213,7 @@ public class C206_CaseStudy {
 		}
 	}
 
-	// XUENI --------- Menu Created for Order Options ------
+	// XUENI --------- Menu Created for Order Method Options ------
 	public static void orderMenu() {
 		setHeader("OPTIONS FOR ORDER");
 		System.out.println("1. ADD A NEW ORDER ");
@@ -292,6 +298,125 @@ public class C206_CaseStudy {
 
 		} else {
 			System.out.println("Order ID " + OrderID + " removed successfully!");
+		}
+	}
+
+	// EUGENE --------- A method created to handle everything related to
+	// Users (ADD/ VIEW/ DELETE)
+	public static void UserOptions() {
+		int option = 0;
+		final int OPTION_QUIT = 4;
+		final int OPTION_DELETE = 3;
+		final int OPTION_VIEW = 2;
+		final int OPTION_ADD = 1;
+		while (option != 4) {
+			UserMenu();
+			option = Helper.readInt("Enter an option to proceed > ");
+			System.out.println("");
+
+			if (option == OPTION_ADD) {
+				User UM  = InputUsersMethod();
+				addUserMethod(UserList,UM);
+			} else if (option == OPTION_VIEW) {
+				viewAllUsers(UserList);
+			} else if (option == OPTION_DELETE) {
+				deleteUser(UserList);
+			} else if (option == OPTION_QUIT) {
+				System.out.println("RETURNING TO MAIN MENU!");
+			} else {
+				System.out.println("INVALID OPTION. PLEASE CHOOSE AGAIN!\n");
+			}
+		}
+	}
+
+	// EUGENE --------- Menu Created for User Method Options ------
+	public static void UserMenu() {
+		setHeader("OPTIONS FOR USERS");
+		System.out.println("1. ADD A NEW USER ");
+		System.out.println("2. VIEW ALL USERS ");
+		System.out.println("3. DELETE AN EXISTING USER/USERS ");
+		System.out.println("4. RETURN TO MAIN MENU");
+		Helper.line(80, "-");
+	}
+
+	// EUGENE --------- Ask user to enter their credentials for AddUsersMethod
+	public static User InputUsersMethod() {
+		String userid = Helper.readString("Enter ID > ");
+		String username = Helper.readString("Enter Username > ");
+		String mobilenum = Helper.readString("Enter mobile number > ");
+		String email = Helper.readString("Enter email > ");
+		Helper.line(80, "-");
+		User UM = new User(userid, username, mobilenum, email);
+
+		return UM;
+	}
+
+	// EUGENE -------------------- Add new User Method to UserList
+	public static void addUserMethod(ArrayList<User> UserList, User UM) {
+		String mobilenum = UM.getMobileNumber();
+		String userid = UM.getUserId();
+		String username = UM.getUserName();
+		String email = UM.getemail();
+		for (User Users : UserList) {
+			if (Users.getUserId() == userid) {
+				System.out.println("This User already exists in the system.\n");
+				return;
+			}
+		}
+		if (mobilenum.isEmpty() || username.isEmpty() || email.isEmpty() || userid.isEmpty()) {
+			System.out.println("There are missing informations.\nPlease make sure to fill out everything!\n");
+			return;
+		}
+		UserList.add(UM);
+		System.out.println("USER SUCCESSFULLY ADDED!\n");
+
+	}
+
+	// EUGENE-------------------RETRIEVE ALL USER LIST FROM UserList IN ORDER TO
+	// VIEW IT-----------------------------------
+	public static String retrieveAllUsers(ArrayList<User> UserList) {
+		String output = "";
+
+		for (int i = 0; i < UserList.size(); i++) {
+			output += String.format("%-10s %-20s %-20s %-10s\n", UserList.get(i).getUserId(),
+					UserList.get(i).getUserName(), UserList.get(i).getMobileNumber(), UserList.get(i).getemail());
+		}
+		return output;
+	}
+
+	// EUGENE-----------------------VIEW ALL USER FROM THE
+	// USERLIST----------------------------------------
+	public static void viewAllUsers(ArrayList<User> UserList) {
+		C206_CaseStudy.setHeader("USER LIST");
+		String output = String.format("%-10s %-20s %-20s %-10s\n", "USER ID", "USER NAME", "MOBILE NUMBER", "EMAIL");
+		output += retrieveAllUsers(UserList);
+		System.out.println(output);
+	}
+
+	// XUENI------------------------DELETE AN EXSITING ORDER FROM
+	// ORDERLIST---------------------------------
+	public static boolean inputUserID(ArrayList<User> UserList, String UserId) {
+		boolean isDeleted = false;
+
+		for (int i = 0; i < UserList.size(); i++) {
+			if (UserId == (UserList.get(i).getUserId())) {
+				UserList.remove(i);
+				isDeleted = true;
+			}
+		}
+		return isDeleted;
+	}
+
+	public static void deleteUser(ArrayList<User> UserList) {
+		C206_CaseStudy.viewAllUsers(UserList);
+		String UserID = Helper.readString("Enter the User ID you wish to delete > ");
+		Boolean isDeleted = inputUserID(UserList, UserID);
+
+		if (isDeleted == false) {
+			System.out.println("No user ID found.");
+
+		} else {
+			System.out.println("User ID " + UserID + " removed successfully!");
 		}
 	}
 

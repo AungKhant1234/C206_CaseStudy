@@ -15,6 +15,10 @@ public class C206_CaseStudyTest {
 	private Order order2;
 	private ArrayList<Order> orderList;
 
+	private ArrayList<User> UserList;
+	private User user1;
+	private User user2;
+
 	@Before
 	public void setUp() throws Exception {
 		py1 = new PaymentMethod("John", "111222", 1234, "OCBC", "VISA");
@@ -23,13 +27,20 @@ public class C206_CaseStudyTest {
 		order1 = new Order("OD25", "Johnny", "87459845", "2");
 		order2 = new Order("OD26", "Lily", "85478956", "1");
 		orderList = new ArrayList<Order>();
+
+		UserList = new ArrayList<User>();
+		user1 = new User("760001", "Johnny", "87459845", "Johnny123@gmail.com");
+		user2 = new User("760002", "Lily", "85478956", "Lily123@gmail.com");
+
 	}
-	//Aung 
+
+	// Aung
 	@Test
 	public void testAddPaymentMethod() {
 		// Item list is not null, so that can add a new payment method - boundary
 		assertNotNull("Check if there is valid PaymentInfo arraylist to add to", paymentMethod);
-		// Given an empty list, after adding 1 payment method, the size of the list is 1 - normal
+		// Given an empty list, after adding 1 payment method, the size of the list is 1
+		// - normal
 		// The payment method just added is as same as the first item of the list
 		C206_CaseStudy.addPaymentMethod(paymentMethod, py1);
 		assertEquals("Check that PaymentInfo arraylist size is 1", 1, paymentMethod.size());
@@ -40,27 +51,29 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addPaymentMethod(paymentMethod, py2);
 		assertEquals("Check that PaymentInfo arraylist size is 2", 2, paymentMethod.size());
 		assertSame("Check that PaymentInfo is added", py2, paymentMethod.get(1));
-		
+
 		// Add a payment method with missing information.
 		// Test that the size of the list is unchanged. - error
 		PaymentMethod py3 = new PaymentMethod("Elle", "", 9876, "DBS", "VISA");
 		C206_CaseStudy.addPaymentMethod(paymentMethod, py3);
 		assertEquals("Check that PaymentInfo arraylist size is 2", 2, paymentMethod.size());
-		
-		// Add a payment method which is with same card holder. ( 1 user can have multiple payment methods )
+
+		// Add a payment method which is with same card holder. ( 1 user can have
+		// multiple payment methods )
 		// The payment method is added and the size of the list changed. - normal
-		
+
 		PaymentMethod py4 = new PaymentMethod("John", "111222", 9875, "DBS", "MASTER");
 		C206_CaseStudy.addPaymentMethod(paymentMethod, py4);
 		assertEquals("Check that PaymentInfo arraylist size is 3", 3, paymentMethod.size());
-		
-		// Add a payment method that already exists in the list. 
+
+		// Add a payment method that already exists in the list.
 		// Test that the size of the list remains the same. - error
 		C206_CaseStudy.addPaymentMethod(paymentMethod, py1);
 		assertEquals("Check that PaymentInfo arraylist size is 3", 3, paymentMethod.size());
-		
+
 	}
-	//Aung 
+
+	// Aung
 	@Test
 	public void testRetrieveAllPaymentMethod() {
 		// fail("Not yet implemented");
@@ -87,7 +100,8 @@ public class C206_CaseStudyTest {
 		testOutput += String.format("%-15s %-15s %-15d %-15s %-15s\n", "Marry", "222111", 4321, "DBS", "NETS");
 		assertEquals("Test that ViewAllPaymentMethod", testOutput, allPaymentMethod);
 	}
-	//Aung 
+
+	// Aung
 	@Test
 	public void testDeletePaymentMethod() {
 		PaymentMethod py3 = new PaymentMethod("Elle", "600800", 9876, "DBS", "VISA");
@@ -109,7 +123,7 @@ public class C206_CaseStudyTest {
 		// Test if the remaining payment method is the one that wasn't deleted - normal
 		assertEquals("Test that the remaining PaymentMethod is the correct one", py1, paymentMethod.get(0));
 
-		// Given a payment method which isn't in the list, 
+		// Given a payment method which isn't in the list,
 		// Test if the size of the list doesn't change and remain the same.
 		C206_CaseStudy.deletePaymentMethod(paymentMethod, py3);
 		assertEquals("Test that the size of the list remain the same (1)", 1, paymentMethod.size());
@@ -136,8 +150,8 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addNewOrder(orderList, order2);
 		assertEquals("Test that the Order arraylist size is unchange.", 2, orderList.size());
 
-		// Add an item that has missing detail
-		Order od_missing = new Order("OD29", "", "96514485","2");
+		// Add an item that has missing detail to check that it does not add into the arraylist successfully
+		Order od_missing = new Order("OD29", "", "96514485", "2");
 		C206_CaseStudy.addNewOrder(orderList, od_missing);
 		assertEquals("Test that the Order arraylist size is unchange.", 2, orderList.size());
 
@@ -178,23 +192,106 @@ public class C206_CaseStudyTest {
 	// XUE NI
 	@Test
 	public void c206_testDeleteOrder() {
-		// Test if the Order list is not null and empty 
+		// Test if the Order list is not null and empty
 		assertNotNull("Test if there is valid Order arraylist to retrieve order from", orderList);
 		assertEquals("Test that the Order arraylist is empty.", 0, orderList.size());
 
 		// Test that the list is not empty before deleting
-		C206_CaseStudy.addNewOrder(orderList,order1);
+		C206_CaseStudy.addNewOrder(orderList, order1);
 		C206_CaseStudy.addNewOrder(orderList, order2);
 		assertEquals("Test that Order arraylist size is 2.", 2, orderList.size());
-		
+
 		// The size of the list decreases by one after deleting one order
 		C206_CaseStudy.inputOrderID(orderList, "OD25");
 		assertEquals("Test that Order arraylist size is 1", 1, orderList.size());
 
-		// Test the order not in the list is not deleted, the size of the list remains the same
+		// Test the order not in the list is not deleted, the size of the list remains
+		// the same
 		C206_CaseStudy.inputOrderID(orderList, "OD99");
 		assertEquals("Test that the size of the list remain the same which is 1", 1, orderList.size());
 
+	}
+
+	// EUGENE
+	@Test
+	public void c206_testAddUserMethod() {
+		// fail("Not yet implemented");
+		assertNotNull("Test if there is valid User arraylist to add to", UserList);
+		assertEquals("Test that the User arraylist is empty.", 0, UserList.size());
+		// Given an empty list, after adding 1 user, the size of the list becomes 1
+		C206_CaseStudy.addUserMethod(UserList, user1);
+		assertEquals("Test that the User arraylist size is 1.", 1, UserList.size());
+
+		// Add an item
+		C206_CaseStudy.addUserMethod(UserList, user2);
+		assertEquals("Test that the User arraylist size is now 2.", 2, UserList.size());
+		// The user just added is the same as the last item in the list
+		assertSame("Test that User is added to the end of the list.", user2, UserList.get(1));
+
+		// Add a user that already exists in the list
+		C206_CaseStudy.addUserMethod(UserList, user2);
+		assertEquals("Test that the user arraylist size is unchange.", 2, UserList.size());
+
+		//Add a user that has missing detail to check that it does not add into the arraylist successfully
+		User user_missing = new User("760001", "Johnny", "87459845", "");
+		C206_CaseStudy.addUserMethod(UserList, user_missing);
+		assertEquals("Test that the User arraylist size is unchange.", 2, UserList.size());
+
+	}
+
+	// EUGENE
+	@Test
+	public void c206_testDeleteUser() {
+		// Test if the Order list is not null and empty
+		assertNotNull("Test if there is valid User arraylist to retrieve user from", UserList);
+		assertEquals("Test that the User arraylist is empty.", 0, UserList.size());
+
+		// Test that the list is not empty before deleting
+		C206_CaseStudy.addUserMethod(UserList, user1);
+		C206_CaseStudy.addUserMethod(UserList, user2);
+		assertEquals("Test that User arraylist size is 2.", 2, UserList.size());
+
+		// The size of the list decreases by one after deleting one order
+		C206_CaseStudy.inputUserID(UserList, "760001");
+		assertEquals("Test that User arraylist size is 1", 1, UserList.size());
+
+		// Test the order not in the list is not deleted, the size of the list remains
+		// the same
+		C206_CaseStudy.inputUserID(UserList, "76012");
+		assertEquals("Test that the size of the list remain the same which is 1", 1, UserList.size());
+
+	}
+
+	// EUGENE
+	@Test
+	public void c206_testretrieveAllUsers() {
+		// Test Case 1
+		// Test if Item list is not null and empty
+		assertNotNull("Test if there is valid Users arraylist to add to", UserList);
+		assertEquals("Test that the User arraylist is empty.", 0, UserList.size());
+
+		// Attempt to retrieve the Order
+		String allUser = C206_CaseStudy.retrieveAllUsers(UserList);
+		String testOutput = "";
+
+		// Test if the output is empty
+		assertEquals("Test that nothing is displayed", testOutput, allUser);
+
+		C206_CaseStudy.addUserMethod(UserList, user1);
+		C206_CaseStudy.addUserMethod(UserList, user2);
+
+		// Test that the list is not empty
+		assertEquals("Test that User arraylist size is 2.", 2, UserList.size());
+
+		// Attempt to retrieve the Order
+		allUser = C206_CaseStudy.retrieveAllUsers(UserList);
+		testOutput = String.format("%-10s %-20s %-20s %-10s\n", "760001", "Johnny", "87459845", "Johnny123@gmail.com");
+		testOutput += String.format("%-10s %-20s %-20s %-10s\n", "760002", "Lily", "85478956", "Lily123@gmail.com");
+
+		// Test that the details are displayed correctly
+		assertEquals("Test that the display is correct.", testOutput, allUser);
+
+		// assertTrue("C206_CaseStudy_SampleTest ",true);
 	}
 
 	@After
@@ -206,5 +303,9 @@ public class C206_CaseStudyTest {
 		order1 = null;
 		order2 = null;
 		orderList.clear();
+		
+		user1 = null;
+		user2 = null;
+		UserList.clear();
 	}
 }
