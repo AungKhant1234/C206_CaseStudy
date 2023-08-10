@@ -213,7 +213,7 @@ public class C206_CaseStudy {
 		}
 	}
 
-	// XUENI --------- Menu Created for Order Method Options ------
+	// XUENI --------- Menu Created for Order Options ------
 	public static void orderMenu() {
 		setHeader("OPTIONS FOR ORDER");
 		System.out.println("1. ADD A NEW ORDER ");
@@ -393,8 +393,8 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
-	// XUENI------------------------DELETE AN EXSITING ORDER FROM
-	// ORDERLIST---------------------------------
+	// EUGENE------------------------DELETE AN EXSITING USER FROM
+	// LIST---------------------------------
 	public static boolean inputUserID(ArrayList<User> UserList, String UserId) {
 		boolean isDeleted = false;
 
