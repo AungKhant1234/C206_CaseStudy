@@ -207,7 +207,7 @@ public class C206_CaseStudy {
 		}
 	}
 
-	// XUENI --------- Menu Created for Payment Method Options ------
+	// XUENI --------- Menu Created for Order Options ------
 	public static void orderMenu() {
 		setHeader("OPTIONS FOR ORDER");
 		System.out.println("1. ADD A NEW ORDER ");
