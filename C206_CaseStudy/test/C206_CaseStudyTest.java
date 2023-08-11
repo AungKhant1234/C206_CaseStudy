@@ -252,12 +252,12 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that User arraylist size is 2.", 2, UserList.size());
 
 		// The size of the list decreases by one after deleting one order
-		C206_CaseStudy.inputUserID(UserList, "760001");
+		C206_CaseStudy.delUserID(UserList, "760001");
 		assertEquals("Test that User arraylist size is 1", 1, UserList.size());
 
 		// Test the order not in the list is not deleted, the size of the list remains
 		// the same
-		C206_CaseStudy.inputUserID(UserList, "76012");
+		C206_CaseStudy.delUserID(UserList, "76012");
 		assertEquals("Test that the size of the list remain the same which is 1", 1, UserList.size());
 
 	}

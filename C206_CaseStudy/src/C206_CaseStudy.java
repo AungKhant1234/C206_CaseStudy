@@ -320,7 +320,7 @@ public class C206_CaseStudy {
 			} else if (option == OPTION_VIEW) {
 				viewAllUsers(UserList);
 			} else if (option == OPTION_DELETE) {
-				deleteUser(UserList);
+				inputUserID(UserList);
 			} else if (option == OPTION_QUIT) {
 				System.out.println("RETURNING TO MAIN MENU!");
 			} else {
@@ -399,7 +399,7 @@ public class C206_CaseStudy {
 	// EUGENE------------------------DELETE AN EXSITING ORDER FROM
 	// USERLIST---------------------------------
 
-	public static boolean inputUserID(ArrayList<User> UserList, String UserId) {
+	public static boolean delUserID(ArrayList<User> UserList, String UserId) {
 		boolean isDeleted = false;
 
 		for (int i = 0; i < UserList.size(); i++) {
@@ -411,10 +411,10 @@ public class C206_CaseStudy {
 		return isDeleted;
 	}
 
-	public static void deleteUser(ArrayList<User> UserList) {
+	public static void inputUserID(ArrayList<User> UserList) {
 		C206_CaseStudy.viewAllUsers(UserList);
 		String UserID = Helper.readString("Enter the User ID you wish to delete > ");
-		Boolean isDeleted = inputUserID(UserList, UserID);
+		Boolean isDeleted = delUserID(UserList, UserID);
 
 		
 		if (isDeleted == false) {
