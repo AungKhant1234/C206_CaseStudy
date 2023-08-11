@@ -5,10 +5,12 @@ public class C206_CaseStudy {
 	private static final int OPTION_USER = 1;
 	private static ArrayList<PaymentMethod> paymentMethod = new ArrayList<PaymentMethod>();
 	private static final int OPTION_PAYMENT = 3;
+	private static final int OPTION_VENDOR = 4;
 	private static ArrayList<Order> orderList = new ArrayList<Order>();
 
 	private static ArrayList<User> UserList = new ArrayList<User>();
-
+	private static ArrayList<Vendor> vendorList = new ArrayList<Vendor>();
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -20,6 +22,9 @@ public class C206_CaseStudy {
 
 		UserList.add(new User("760001", "Johnny", "87459845", "Johnny123@gmail.com"));
 		UserList.add(new User("760002", "Lily", "85478956", "Lily123@gmail.com"));
+
+		vendorList.add(new Vendor("100101", "BB companies", "83150820", "bbcompanies@gmail.com"));
+		vendorList.add(new Vendor("100102", "KK comp", "83723573","kkcomsg@gmail.com"));
 
 		int option = 0;
 		while (option != 6) {
@@ -34,8 +39,8 @@ public class C206_CaseStudy {
 			} else if (option == OPTION_PAYMENT) {
 				paymentMethodOptions();
 
-			} else if (option == 4) {
-
+			} else if (option == OPTION_VENDOR) {
+				vendorOptions();
 			} else if (option == 5) {
 
 			} else if (option == 6) {
@@ -56,7 +61,7 @@ public class C206_CaseStudy {
 		System.out.println("1. USERS OPTIONS");
 		System.out.println("2. ORDER OPTIONS ");
 		System.out.println("3. PAYMENT METHOD OPTIONS");
-		System.out.println("4. ");
+		System.out.println("4. VENDOR OPTIONS");
 		System.out.println("5. ");
 		System.out.println("6. QUIT");
 		Helper.line(80, "-");
@@ -520,7 +525,7 @@ public class C206_CaseStudy {
 			boolean isDeleted = false;
 
 			for (int i = 0; i < vendorList.size(); i++) {
-				if (VendorId.equalIgnoreCase(vendorList.get(i).getVendorId())) {
+				if (VendorId.equalsIgnoreCase(vendorList.get(i).getVendorId())) {
 					vendorList.remove(i);
 					isDeleted = true;
 				}
