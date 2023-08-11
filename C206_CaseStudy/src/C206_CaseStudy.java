@@ -673,11 +673,11 @@ public class C206_CaseStudy {
 		// KELVIN ------------------------DELETE AN EXSITING ORDER FROM
 		// USERLIST---------------------------------
 
-		public static boolean delMenuID(ArrayList<Menu> menuList, String Id) {
+		public static boolean delMenuID(ArrayList<Menu> menuList, int Id) {
 			boolean isDeleted = false;
 
 			for (int i = 0; i < menuList.size(); i++) {
-				if (Id.equalsIgnoreCase(Integer.toString(menuList.get(i).getId()))) {
+				if (Id== menuList.get(i).getId()) {
 					menuList.remove(i);
 					isDeleted = true;
 				}
@@ -687,7 +687,7 @@ public class C206_CaseStudy {
 
 		public static void deleteMenuID(ArrayList<Menu> menuList) {
 			C206_CaseStudy.viewAllMenu(menuList);
-			String umenuId = Helper.readString("Enter The Menu ID You Wish To Delete > ");
+			int umenuId = Helper.readInt("Enter The Menu ID You Wish To Delete > ");
 			Boolean isDeleted = delMenuID(menuList, umenuId);
 
 			

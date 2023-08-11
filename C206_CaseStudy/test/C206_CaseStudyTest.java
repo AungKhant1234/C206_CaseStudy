@@ -19,6 +19,9 @@ public class C206_CaseStudyTest {
 	private User user1;
 	private User user2;
 
+	private ArrayList<Menu> menuList;
+	private Menu menu1;
+	private Menu menu2;
 	@Before
 	public void setUp() throws Exception {
 		py1 = new PaymentMethod("John", "111222", 1234, "OCBC", "VISA");
@@ -31,6 +34,10 @@ public class C206_CaseStudyTest {
 		UserList = new ArrayList<User>();
 		user1 = new User("760001", "Johnny", "87459845", "Johnny123@gmail.com");
 		user2 = new User("760002", "Lily", "85478956", "Lily123@gmail.com");
+
+		menuList = new ArrayList<Menu>();
+		menu1 = new Menu("Italian", "Zuppe e salse(soups and sauces), Pane(bread), Pizzas, Pastas, Rice dishes, Carne(meat dishes and cured meats), Deserts and Pastries, Drinks", 7.99, 00001);
+		menu2 = new Menu("Indian", "South Indian(dosa, idlis, vadas, Kerala Parotta), North Indian(chappathi, paneer, chicken 65, chicken tikka, aloo, dhal), Deserts and Pastries, Drinks", 5.99, 00002);
 
 	}
 
@@ -260,7 +267,7 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.delUserID(UserList, "76012");
 		assertEquals("Test that the size of the list remain the same which is 1", 1, UserList.size());
 
-		
+
 	}
 
 	// EUGENE
@@ -294,7 +301,88 @@ public class C206_CaseStudyTest {
 
 		// assertTrue("C206_CaseStudy_SampleTest ",true);
 	}
+	// KELVIN
+	@Test
+	public void c206_testAddMenuMethod() {
+		// fail("Not yet implemented");
+		assertNotNull("Test if there is valid Menu arraylist to add to", menuList);
+		assertEquals("Test that the Menu arraylist is empty.", 0, menuList.size());
+		// Given an empty list, after adding 1 menu, the size of the list becomes 1 - normal
+		C206_CaseStudy.addMenuMethod(menuList, menu1);
+		assertEquals("Test that the Menu arraylist size is 1.", 1, menuList.size());
 
+		// Add an item
+		C206_CaseStudy.addMenuMethod(menuList, menu2);
+		assertEquals("Test that the Menu arraylist size is now 2.", 2, menuList.size());
+		// The menu just added is the same as the last item in the list - normal
+		assertSame("Test that Menu is added to the end of the list.", menu2, menuList.get(1));
+
+		// Add a menu that already exists in the list
+		C206_CaseStudy.addMenuMethod(menuList, menu2);
+		assertEquals("Test that the Menu arraylist size is unchange.", 2, menuList.size());
+
+		//Add a Menu that has missing detail to check that it does not add into the arraylist successfully - error
+		Menu menu_missing = new Menu("", "Steamed, Roasted, Soups, Noodles",2.3, 00001);
+		C206_CaseStudy.addMenuMethod(menuList, menu_missing);
+		assertEquals("Test that the Menu arraylist size is unchange.", 2, menuList.size());
+
+	}
+
+	// Kelvin
+	@Test
+	public void c206_testDeleteMenu() {
+		// Test if the Menu list is not null and empty
+		assertNotNull("Test if there is valid Menu arraylist to retrieve menu from", menuList);
+		assertEquals("Test that the Menu arraylist is empty.", 0, menuList.size());
+
+		// Test that the list is not empty before deleting
+		C206_CaseStudy.addMenuMethod(menuList, menu1);
+		C206_CaseStudy.addMenuMethod(menuList, menu2);
+		assertEquals("Test that Menu arraylist size is 2.", 2, menuList.size());
+
+		// The size of the list decreases by one after deleting one order
+		C206_CaseStudy.delMenuID(menuList, 799);
+		assertEquals("Test that Menu arraylist size is 1", 1, menuList.size());
+
+		// Test the order not in the list is not deleted, the size of the list remains
+		// the same
+		C206_CaseStudy.delMenuID(menuList, 234567);
+		assertEquals("Test that the size of the list remain the same (1)", 1, menuList.size());
+
+
+	}
+
+	// EUGENE
+	@Test
+	public void c206_testviewAllMenus() {
+		// Test Case 1
+		// Test if Item list is not null and empty
+		assertNotNull("Test if there is valid Users arraylist to add to", menuList);
+		assertEquals("Test that the menu arraylist is empty.", 0, menuList.size());
+
+		// Attempt to retrieve the Order
+		String allMenu = C206_CaseStudy.viewAllMenu(menuList);
+		String testOutput = "";
+
+		// Test if the output is empty
+		assertEquals("Test that nothing is displayed", testOutput, allMenu);
+
+		C206_CaseStudy.addMenuMethod(menuList, menu1);
+		C206_CaseStudy.addMenuMethod(menuList, menu2);
+
+		// Test that the list is not empty
+		assertEquals("Test that menu arraylist size is 2.", 2, menuList.size());
+
+		// Attempt to retrieve the menu
+		allMenu = C206_CaseStudy.viewAllMenu(menuList);
+		testOutput = String.format("%-10s %-20s %-20.2f %-10d\n", "Italian", "Zuppe e salse(soups and sauces), Pane(bread), Pizzas, Pastas, Rice dishes, Carne(meat dishes and cured meats), Deserts and Pastries, Drinks", 7.99, 00001);
+		testOutput += String.format("%-10s %-20s %-20.2f %-10d\n", "Indian", "South Indian(dosa, idlis, vadas, Kerala Parotta), North Indian(chappathi, paneer, chicken 65, chicken tikka, aloo, dhal), Deserts and Pastries, Drinks", 5.99, 00002);
+
+		// Test that the details are displayed correctly
+		assertEquals("Test that the display is correct.", testOutput, allMenu);
+
+		// assertTrue("C206_CaseStudy_SampleTest ",true);
+	}
 	@After
 	public void tearDown() throws Exception {
 		py1 = null;
@@ -304,7 +392,7 @@ public class C206_CaseStudyTest {
 		order1 = null;
 		order2 = null;
 		orderList.clear();
-		
+
 		user1 = null;
 		user2 = null;
 		UserList.clear();
