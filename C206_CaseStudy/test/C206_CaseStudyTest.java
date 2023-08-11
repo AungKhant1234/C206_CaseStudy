@@ -260,6 +260,7 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.delUserID(UserList, "76012");
 		assertEquals("Test that the size of the list remain the same which is 1", 1, UserList.size());
 
+		
 	}
 
 	// EUGENE
