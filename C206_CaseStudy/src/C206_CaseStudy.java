@@ -425,4 +425,120 @@ public class C206_CaseStudy {
 		}
 	}
 
+	// TOMIN ------ A method created to handle everything related to 
+	// Vendors (ADD/VIEW/DELETE)
+	public static void vendorOptions() {
+		int option = 0;
+		final int OPTION_QUIT = 4;
+		final int OPTION_DELETE = 3;
+		final int OPTION_VIEW = 2;
+		final int OPTION_ADD = 1;
+		while (option != 4) {
+			vendorMenu();
+			option = Helper.readInt("Enter an option to proceed > ");
+			System.out.println("");
+
+			if (option == OPTION_ADD) {
+				Vendor vn  = InputVendor();
+				addVendorMethod(vendorList,vn);
+			} else if (option == OPTION_VIEW) {
+				viewAllVendors(vendorList);
+			} else if (option == OPTION_DELETE) {
+				deleteVendor(vendorList);
+			} else if (option == OPTION_QUIT) {
+				System.out.println("RETURNING TO MAIN MENU!");
+			} else {
+				System.out.println("INVALID OPTION. PLEASE CHOOSE AGAIN!\n");
+			}
+		}
+	}
+	// TOMIN --------- Menu Created for Vendor Options ------
+		public static void vendorMenu() {
+			setHeader("OPTIONS FOR VENDOR");
+			System.out.println("1. ADD A NEW VENDOR ");
+			System.out.println("2. VIEW ALL VENDORS ");
+			System.out.println("3. DELETE AN EXISTING VENDOR ");
+			System.out.println("4. RETURN TO MAIN MENU");
+			Helper.line(80, "-");
+		}
+		
+		// TOMIN-------------------RETRIEVE ALL VENDORS FROM VendorList IN ORDER TO
+		// VIEW IT-----------------------------------
+		public static String retrieveAllvendors(ArrayList<Vendor> vendorList) {
+			String output = "";
+
+			for (int i = 0; i < vendorList.size(); i++) {
+				output += String.format("%-10s %-20s %-20s %-10s\n", vendorList.get(i).getVendorId(),
+						vendorList.get(i).getvendorName(), vendorList.get(i).getMobileNumber(), vendorList.get(i).getEmail());
+			}
+			return output;
+		}
+		// TOMIN --------- Ask admin to enter their credentials for AddVendorMethod
+		public static Vendor InputVendor() {
+			String VendorId = Helper.readString("Enter ID > ");
+			String vendorName = Helper.readString("Enter Vendorname > ");
+			String mobilenum = Helper.readString("Enter mobile number > ");
+			String email = Helper.readString("Enter email > ");
+			Helper.line(80, "-");
+			Vendor vn = new Vendor(VendorId, vendorName, mobilenum, email);
+
+			return vn;
+		}
+
+		// TOMIN -------------------- Add new Vendor Method to VendorList
+		public static void addVendorMethod(ArrayList<Vendor> vendorList, Vendor vn) {
+			String mobilenum = vn.getMobileNumber();
+			String VendorId = vn.getVendorId();
+			String vendorName = vn.getvendorName();
+			String email = vn.getEmail();
+			for (Vendor Vendors : vendorList) {
+				if (Vendors.getVendorId() == VendorId) {
+					System.out.println("This Vendor already exists in the system.\n");
+					return;
+				}
+			}
+			if (mobilenum.isEmpty() || vendorName.isEmpty() || email.isEmpty() || VendorId.isEmpty()) {
+				System.out.println("There are missing informations.\nPlease make sure to fill out everything!\n");
+				return;
+			}
+			vendorList.add(vn);
+			System.out.println("USER SUCCESSFULLY ADDED!\n");
+
+		}
+		// TOMIN-----------------------VIEW ALL VENDOR FROM THE
+		// VENDORLIST----------------------------------------
+		public static void viewAllVendors(ArrayList<Vendor> vendorList) {
+			C206_CaseStudy.setHeader("VENDOR LIST");
+			String output = String.format("%-10s %-20s %-20s %-10s\n", "VENDOR ID", "VENDOR NAME", "MOBILE NUMBER", "EMAIL");
+			output += retrieveAllvendors(vendorList);
+			System.out.println(output);
+		}
+
+		// TOMIN------------------------DELETE AN EXSITING VENDOR FROM
+		// LIST---------------------------------
+		public static boolean inputVendorId(ArrayList<Vendor> vendorList, String VendorId) {
+			boolean isDeleted = false;
+
+			for (int i = 0; i < vendorList.size(); i++) {
+				if (VendorId.equalIgnoreCase(vendorList.get(i).getVendorId())) {
+					vendorList.remove(i);
+					isDeleted = true;
+				}
+			}
+			return isDeleted;
+		}
+
+		public static void deleteVendor(ArrayList<Vendor> vendorList) {
+			C206_CaseStudy.viewAllVendors(vendorList);
+			String VendorId = Helper.readString("Enter the Vendor ID you wish to delete > ");
+			Boolean isDeleted = inputVendorId(vendorList, VendorId);
+
+			if (isDeleted == false) {
+				System.out.println("No vendor ID found.");
+
+			} else {
+				System.out.println("Vendor ID " + VendorId + " removed successfully!");
+			}
+		}
+
 }
