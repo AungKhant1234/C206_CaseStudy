@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class C206_CaseStudy {
 
@@ -6,6 +7,7 @@ public class C206_CaseStudy {
 	private static final int OPTION_MENU = 5;
 	private static final int OPTION_USER = 1;
 	private static ArrayList<PaymentMethod> paymentMethod = new ArrayList<PaymentMethod>();
+	private static String patternLast4Digit = "\\d{4}";
 	private static final int OPTION_PAYMENT = 3;
 	private static final int OPTION_VENDOR = 4;
 	private static ArrayList<Order> orderList = new ArrayList<Order>();
@@ -122,6 +124,12 @@ public class C206_CaseStudy {
 		String cardHolder = Helper.readString("Enter card holder name > ");
 		String postalCode = Helper.readString("Enter postal code > ");
 		int last4Digit = Helper.readInt("Enter the last 4 digit of the card > ");
+		boolean check = Pattern.matches(patternLast4Digit, Integer.toString(last4Digit));
+		while(!check) {
+			System.out.println("PLEASE ENTER 4 INTEGERS!!");
+			last4Digit = Helper.readInt("Enter the last 4 digit of the card > ");
+			check = Pattern.matches(patternLast4Digit, Integer.toString(last4Digit));
+		}
 		String bankName = Helper.readString("Enter bank name > ").toUpperCase();
 		String cardType = Helper.readString("Enter card type > ").toUpperCase();
 		Helper.line(80, "-");
@@ -175,7 +183,14 @@ public class C206_CaseStudy {
 
 	// Aung ------------ Ask user for the payment method to delete
 	public static PaymentMethod askForDelete(ArrayList<PaymentMethod> paymentMethod) {
+
 		int last4Digit = Helper.readInt("Enter last 4 digit of the card you want to delete > ");
+		boolean check = Pattern.matches(patternLast4Digit, Integer.toString(last4Digit));
+		while (!check) {
+			System.out.println("PLEASE ENTER 4 INTEGERS!!");
+			last4Digit = Helper.readInt("Enter last 4 digit of the card you want to delete > ");
+			check = Pattern.matches(patternLast4Digit, Integer.toString(last4Digit));
+		}
 		for (PaymentMethod p : paymentMethod) {
 			if (p.getLast4Digit() == last4Digit) {
 				return p;
@@ -187,17 +202,23 @@ public class C206_CaseStudy {
 	// Aung -------------------- Delete Payment Method from paymentMethod List
 	public static void deletePaymentMethod(ArrayList<PaymentMethod> paymentMethod, PaymentMethod py) {
 		if (py != null) {
-			for (PaymentMethod p : paymentMethod) {
-				int last4Digit = py.getLast4Digit();
-				if (p.getLast4Digit() == last4Digit) {
-					paymentMethod.remove(p);
-					System.out.println("PAYMENT METHOD SUCCESSFULLY DELETED!\n");
-					return;
+			char confirm = Helper.readChar(
+					"Confirm to delete the payment method with last 4 digits " + py.getLast4Digit() + " > (Y / y) ");
+			if (confirm == 'Y' || confirm == 'y') {
+				for (PaymentMethod p : paymentMethod) {
+					int last4Digit = py.getLast4Digit();
+					if (p.getLast4Digit() == last4Digit) {
+						paymentMethod.remove(p);
+						System.out.println("PAYMENT METHOD SUCCESSFULLY DELETED!\n");
+						return;
+					}
 				}
 			}
+			else {
+				return;
+			}
 		}
-		System.out.println("This payment method doesn't exist in the system!\n");
-
+			System.out.println("This payment method doesn't exist in the system!\n");	
 	}
 
 	// XUENI --------- A method created to handle everything related to
