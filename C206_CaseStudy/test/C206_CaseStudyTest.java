@@ -121,7 +121,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that PaymentMethod arraylist size is 1", 1, paymentMethod.size());
 
 		// Test if the remaining payment method is the one that wasn't deleted - normal
-		assertEquals("Test that the remaining PaymentMethod is the correct one", py1, paymentMethod.get(0));
+		assertSame("Test that the remaining PaymentMethod is the correct one", py1, paymentMethod.get(0));
 
 		// Given a payment method which isn't in the list,
 		// Test if the size of the list doesn't change and remain the same.
