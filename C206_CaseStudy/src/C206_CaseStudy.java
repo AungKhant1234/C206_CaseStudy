@@ -393,13 +393,13 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
-	// XUENI------------------------DELETE AN EXSITING ORDER FROM
-	// ORDERLIST---------------------------------
+	// EUGENE------------------------DELETE AN EXSITING ORDER FROM
+	// USERLIST---------------------------------
 	public static boolean inputUserID(ArrayList<User> UserList, String UserId) {
 		boolean isDeleted = false;
 
 		for (int i = 0; i < UserList.size(); i++) {
-			if (UserId == (UserList.get(i).getUserId())) {
+			if (UserId.equalsIgnoreCase(UserList.get(i).getUserId())) {
 				UserList.remove(i);
 				isDeleted = true;
 			}
