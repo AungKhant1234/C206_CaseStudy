@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
+	private static final int OPTION_ORDER = 2;
+	private static final int OPTION_MENU = 5;
 	private static final int OPTION_USER = 1;
 	private static ArrayList<PaymentMethod> paymentMethod = new ArrayList<PaymentMethod>();
 	private static final int OPTION_PAYMENT = 3;
@@ -10,6 +12,8 @@ public class C206_CaseStudy {
 
 	private static ArrayList<User> UserList = new ArrayList<User>();
 	private static ArrayList<Vendor> vendorList = new ArrayList<Vendor>();
+	
+	private static ArrayList<Menu> menuList = new ArrayList<Menu>();
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -25,6 +29,9 @@ public class C206_CaseStudy {
 
 		vendorList.add(new Vendor("100101", "BB companies", "83150820", "bbcompanies@gmail.com"));
 		vendorList.add(new Vendor("100102", "KK comp", "83723573","kkcomsg@gmail.com"));
+		
+		menuList.add(new Menu("Italian", "Zuppe e salse(soups and sauces), Pane(bread), Pizzas, Pastas, Rice dishes, Carne(meat dishes and cured meats), Deserts and Pastries, Drinks", 7.99, 00001));
+		menuList.add(new Menu("Indian", "South Indian(dosa, idlis, vadas, Kerala Parotta), North Indian(chappathi, paneer, chicken 65, chicken tikka, aloo, dhal), Deserts and Pastries, Drinks", 5.99, 00002));
 
 		int option = 0;
 		while (option != 6) {
@@ -33,7 +40,7 @@ public class C206_CaseStudy {
 			System.out.println("");
 			if (option == OPTION_USER) {
 				UserOptions();
-			} else if (option == 2) {
+			} else if (option == OPTION_ORDER) {
 				orderOptions();
 
 			} else if (option == OPTION_PAYMENT) {
@@ -41,7 +48,9 @@ public class C206_CaseStudy {
 
 			} else if (option == OPTION_VENDOR) {
 				vendorOptions();
-			} else if (option == 5) {
+				
+			} else if (option == OPTION_MENU) {
+				menuOptions();
 
 			} else if (option == 6) {
 				System.out.println("THANK YOU FOR USING OUR LUNCH BOX ORDERING SYSTEM");
@@ -62,7 +71,7 @@ public class C206_CaseStudy {
 		System.out.println("2. ORDER OPTIONS ");
 		System.out.println("3. PAYMENT METHOD OPTIONS");
 		System.out.println("4. VENDOR OPTIONS");
-		System.out.println("5. ");
+		System.out.println("5. MENU OPTIONS");
 		System.out.println("6. QUIT");
 		Helper.line(80, "-");
 
@@ -546,4 +555,126 @@ public class C206_CaseStudy {
 			}
 		}
 
+		// KELVIN --------- A method created to handle everything related to
+		// Menu (ADD/ VIEW/ DELETE)
+		public static void menuOptions() {
+			int option = 0;
+			final int OPTION_QUIT = 4;
+			final int OPTION_DELETE = 3;
+			final int OPTION_VIEW = 2;
+			final int OPTION_ADD = 1;
+			while (option != 4) {
+				MenusMenu();
+				option = Helper.readInt("Enter an Option to Proceed > ");
+				System.out.println("");
+
+				if (option == OPTION_ADD) {
+					Menu MN  = InputMenuMethod();
+					addMenuMethod(menuList,MN);
+				} else if (option == OPTION_VIEW) {
+					viewAllMenus(menuList);
+				} else if (option == OPTION_DELETE) {
+					deleteMenuID(menuList);
+				} else if (option == OPTION_QUIT) {
+					System.out.println("RETURNING TO MAIN MENU!");
+				} else {
+					System.out.println("INVALID OPTION. PLEASE CHOOSE AGAIN!\n");
+				}
+			}
+		}
+		// KELVIN --------- Menu Created for Menus Method Options ------
+		public static void MenusMenu() {
+			setHeader("OPTIONS FOR MENUS");
+			System.out.println("1. ADD A NEW MENUS ");
+			System.out.println("2. VIEW ALL MENUS ");
+			System.out.println("3. DELETE AN EXISTING MENU/MENUS ");
+			System.out.println("4. RETURN TO MAIN MENU");
+			Helper.line(80, "-");
+		}
+
+		// KELVIN --------- Ask user to enter Menu for AddUsersMethod
+		public static Menu InputMenuMethod() {
+			String name = Helper.readString("Enter Menu Name > ");
+			String description = Helper.readString("Enter Menu Description > ");
+			double price = Helper.readDouble("Enter Menu Starting Price (cheapest item on the menu) > ");
+			int id = Helper.readInt("Enter Menu Id > ");
+			Helper.line(80, "-");
+			Menu MN = new Menu(name, description, price, id);
+
+			return MN;
+		}
+
+		// KELVIN -------------------- Add new User Method to UserList
+		public static void addMenuMethod(ArrayList<Menu> menuList, Menu MN) {
+			String name = MN.getName();
+			String description = MN.getDescription();
+			double price = MN.getPrice();
+			int id = MN.getId();
+			for (Menu Menus : menuList) {
+				if (id == Menus.getId()) {
+					System.out.println("This Menu already exists in the system.\n");
+					return;
+				}
+			}
+			if (name.isEmpty() || description.isEmpty() || Double.toString(price).isEmpty() || Integer.toString(id).isEmpty()) {
+				System.out.println("There are missing information.\nPlease fill out all the information!\n");
+				return;
+			}
+			menuList.add(MN);
+			System.out.println("MENU SUCCESSFULLY ADDED!\n");
+
+		}
+
+		// KELVIN -------------------RETRIEVE ALL USER LIST FROM UserList IN ORDER TO
+		// VIEW IT-----------------------------------
+		public static String viewAllMenu(ArrayList<Menu> menuList) {
+			String output = "";
+
+			for (int i = 0; i < menuList.size(); i++) {
+				output += String.format("%-10s %-20s %-20s %-10s\n", menuList.get(i).getId(),
+						menuList.get(i).getName(), menuList.get(i).getPrice(), menuList.get(i).getDescription());
+			}
+			return output;
+		}
+
+		// KELVIN -----------------------VIEW ALL USER FROM THE
+		// USERLIST----------------------------------------
+		public static void viewAllMenus(ArrayList<Menu> menuList) {
+			C206_CaseStudy.setHeader("USER LIST");
+			String output = String.format("%-10s %-20s %-20s %-10s\n", "MENU ID", "MENU NAME", "STARTING PRICE", "DESCRIPTION");
+			output += viewAllMenu(menuList);
+			System.out.println(output);
+		}
+		
+		
+
+
+		// KELVIN ------------------------DELETE AN EXSITING ORDER FROM
+		// USERLIST---------------------------------
+
+		public static boolean delMenuID(ArrayList<Menu> menuList, String Id) {
+			boolean isDeleted = false;
+
+			for (int i = 0; i < menuList.size(); i++) {
+				if (Id.equalsIgnoreCase(Integer.toString(menuList.get(i).getId()))) {
+					menuList.remove(i);
+					isDeleted = true;
+				}
+			}
+			return isDeleted;
+		}
+
+		public static void deleteMenuID(ArrayList<Menu> menuList) {
+			C206_CaseStudy.viewAllMenu(menuList);
+			String umenuId = Helper.readString("Enter The Menu ID You Wish To Delete > ");
+			Boolean isDeleted = delMenuID(menuList, umenuId);
+
+			
+			if (isDeleted == false) {
+				System.out.println("No Menu ID found.");
+
+			} else {
+				System.out.println("Menu ID " + umenuId + " removed successfully!");
+			}
+		}
 }
