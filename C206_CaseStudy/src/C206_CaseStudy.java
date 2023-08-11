@@ -414,6 +414,7 @@ public class C206_CaseStudy {
 		String UserID = Helper.readString("Enter the User ID you wish to delete > ");
 		Boolean isDeleted = inputUserID(UserList, UserID);
 
+		
 		if (isDeleted == false) {
 			System.out.println("No user ID found.");
 
