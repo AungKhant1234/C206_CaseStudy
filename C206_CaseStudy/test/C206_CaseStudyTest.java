@@ -36,8 +36,8 @@ public class C206_CaseStudyTest {
 		user2 = new User("760002", "Lily", "85478956", "Lily123@gmail.com");
 
 		menuList = new ArrayList<Menu>();
-		menu1 = new Menu("Italian", "Zuppe e salse(soups and sauces), Pane(bread), Pizzas, Pastas, Rice dishes, Carne(meat dishes and cured meats), Deserts and Pastries, Drinks", 7.99, 00001);
-		menu2 = new Menu("Indian", "South Indian(dosa, idlis, vadas, Kerala Parotta), North Indian(chappathi, paneer, chicken 65, chicken tikka, aloo, dhal), Deserts and Pastries, Drinks", 5.99, 00002);
+		menu1 = new Menu("Italian", "Zuppe e salse(soups and sauces), Pane(bread), Drinks", 7.99, 1);
+		menu2 = new Menu("Indian", "South Indian(dosa, Kerala Parotta), North Indian(chappathi, dhal), Drinks", 5.99, 2);
 
 	}
 
@@ -341,7 +341,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that Menu arraylist size is 2.", 2, menuList.size());
 
 		// The size of the list decreases by one after deleting a menu
-		C206_CaseStudy.delMenuID(menuList, 10);
+		C206_CaseStudy.delMenuID(menuList, 1);
 		assertEquals("Test that Menu arraylist size is 1", 1, menuList.size());
 
 		// Test the menu not in the list is not deleted, the size of the list remains the same
@@ -374,8 +374,8 @@ public class C206_CaseStudyTest {
 
 		// Attempt to retrieve the menus
 		allMenu = C206_CaseStudy.viewAllMenu(menuList);
-		testOutput = String.format("%-10s %-20s %-20.2f %-10d\n", "Italian", "Zuppe e salse(soups and sauces), Pane(bread), Pizzas, Pastas, Rice dishes, Carne(meat dishes and cured meats), Deserts and Pastries, Drinks", 7.99, 00001);
-		testOutput += String.format("%-10s %-20s %-20.2f %-10d\n", "Indian", "South Indian(dosa, idlis, vadas, Kerala parotta), North Indian(chappathi, paneer, chicken 65, chicken tikka, aloo, dhal), Deserts and Pastries, Drinks", 5.99, 00002);
+		testOutput = String.format("%-10d %-20s %-20.2f %-10s\n", 1, "Italian", 7.99, "Zuppe e salse(soups and sauces), Pane(bread), Drinks");
+		testOutput += String.format("%-10d %-20s %-20.2f %-10s\n", 2, "Indian", 5.99, "South Indian(dosa, Kerala Parotta), North Indian(chappathi, dhal), Drinks");
 
 		// Test that the details are displayed correctly
 		assertEquals("Test that the display is correct.", testOutput, allMenu);

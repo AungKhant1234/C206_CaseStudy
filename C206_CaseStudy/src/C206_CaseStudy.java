@@ -32,8 +32,8 @@ public class C206_CaseStudy {
 		vendorList.add(new Vendor("100101", "BB companies", "83150820", "bbcompanies@gmail.com"));
 		vendorList.add(new Vendor("100102", "KK comp", "83723573","kkcomsg@gmail.com"));
 		
-		menuList.add(new Menu("Italian", "Zuppe e salse(soups and sauces), Pane(bread), Pizzas, Pastas, Rice dishes, Carne(meat dishes and cured meats), Deserts and Pastries, Drinks", 7.99, 00001));
-		menuList.add(new Menu("Indian", "South Indian(dosa, idlis, vadas, Kerala Parotta), North Indian(chappathi, paneer, chicken 65, chicken tikka, aloo, dhal), Deserts and Pastries, Drinks", 5.99, 00002));
+		menuList.add(new Menu("Italian", "Zuppe e salse(soups and sauces), Pane(bread), Drinks", 7.99, 1));
+		menuList.add(new Menu("Indian", "South Indian(dosa, Kerala Parotta), North Indian(chappathi, dhal), Drinks", 5.99, 2));
 
 		int option = 0;
 		while (option != 6) {
