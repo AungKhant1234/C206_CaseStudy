@@ -295,12 +295,18 @@ public class C206_CaseStudy {
 
 	public static void addNewOrder(ArrayList<Order> orderList, Order OD) {
 		Order item;
+		String orderID = OD.getOrderId();
+		String CName = OD.getCustomerName();
+		String MNumber = OD.getMobileNumber();
+		String quantity = OD.getquantity();
+		String ITEM = OD.getitemName();
+		
 		for (int i = 0; i < orderList.size(); i++) {
 			item = orderList.get(i);
-			if (item.getOrderId().equalsIgnoreCase(OD.getOrderId()))
+			if (item.getOrderId().equalsIgnoreCase(orderID))
 				return;
 		}
-		if ((OD.getOrderId().isEmpty()) || (OD.getCustomerName().isEmpty())) {
+		if ((orderID.isEmpty()) || (CName.isEmpty()) || (MNumber.isEmpty())||(quantity.isEmpty())||(ITEM.isEmpty())) {
 			return;
 		}
 
