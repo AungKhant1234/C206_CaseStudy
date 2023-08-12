@@ -23,8 +23,8 @@ public class C206_CaseStudy {
 		paymentMethod.add(new PaymentMethod("Lily", "700300", 3232, "POSB", "MASTER"));
 		paymentMethod.add(new PaymentMethod("Johnny", "100200", 5678, "UOB", "CREDIT CARD"));
 
-		orderList.add(new Order("OD25", "Johnny", "87459845", "2"));
-		orderList.add(new Order("OD26", "Lily", "85478956", "1"));
+		orderList.add(new Order("OD25", "Johnny", "87459845", "2","Pizzas"));
+		orderList.add(new Order("OD26", "Lily", "85478956", "1","Drinks"));
 
 		UserList.add(new User("760001", "Johnny", "87459845", "Johnny123@gmail.com"));
 		UserList.add(new User("760002", "Lily", "85478956", "Lily123@gmail.com"));
@@ -264,9 +264,7 @@ public class C206_CaseStudy {
 		String output = "";
 
 		for (int i = 0; i < orderList.size(); i++) {
-			output += String.format("%-10s %-20s %-20s %-10s\n", orderList.get(i).getOrderId(),
-					orderList.get(i).getCustomerName(), orderList.get(i).getMobileNumber(),
-					orderList.get(i).getquantity());
+			output += String.format("%-85s\n", orderList.get(i).toString());
 		}
 		return output;
 	}
@@ -275,8 +273,8 @@ public class C206_CaseStudy {
 	// ORDERLIST----------------------------------------
 	public static void viewAllOrders(ArrayList<Order> orderList) {
 		C206_CaseStudy.setHeader("ORDER LIST");
-		String output = String.format("%-10s %-20s %-20s %-10s\n", "ORDER ID", "CUSTOMER NAME", "MOBILE NUMBER",
-				"QUANTITY");
+		String output = String.format("%-10s %-20s %-20s %-10s %-15s\n", "ORDER ID", "CUSTOMER NAME", "MOBILE NUMBER",
+				"QUANTITY","ITEM NAME");
 		output += retrieveAllOrders(orderList);
 		System.out.println(output);
 	}
@@ -288,8 +286,9 @@ public class C206_CaseStudy {
 		String customerName = Helper.readString("Enter Customer Name > ");
 		String mobileNo = Helper.readString("Enter Mobile Number > ");
 		String quantity = Helper.readString("Enter the Quantity > ");
+		String itemName = Helper.readString("Enter the food item > ");
 
-		Order OD = new Order(OrderID, customerName, mobileNo, quantity);
+		Order OD = new Order(OrderID, customerName, mobileNo, quantity,itemName);
 		return OD;
 
 	}
@@ -313,11 +312,13 @@ public class C206_CaseStudy {
 	// ORDERLIST---------------------------------
 	public static boolean inputOrderID(ArrayList<Order> orderList, String OrderID) {
 		boolean isDeleted = false;
-
+		
 		for (int i = 0; i < orderList.size(); i++) {
 			if (OrderID.equalsIgnoreCase(orderList.get(i).getOrderId())) {
 				orderList.remove(i);
 				isDeleted = true;
+			} else {
+				isDeleted = false;
 			}
 		}
 		return isDeleted;
@@ -330,8 +331,8 @@ public class C206_CaseStudy {
 
 		if (isDeleted == false) {
 			System.out.println("No Order ID found.");
-
-		} else {
+			
+		}else {
 			System.out.println("Order ID " + OrderID + " removed successfully!");
 		}
 	}
