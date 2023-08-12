@@ -311,7 +311,7 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addMenuMethod(menuList, menu1);
 		assertEquals("Test that the Menu arraylist size is 1.", 1, menuList.size());
 
-		// Add an item
+		// Add an menu
 		C206_CaseStudy.addMenuMethod(menuList, menu2);
 		assertEquals("Test that the Menu arraylist size is now 2.", 2, menuList.size());
 		// The menu just added is the same as the last item in the list - normal
@@ -319,7 +319,7 @@ public class C206_CaseStudyTest {
 
 		// Add a menu that already exists in the list
 		C206_CaseStudy.addMenuMethod(menuList, menu2);
-		assertEquals("Test that the Menu arraylist size is unchange.", 2, menuList.size());
+		assertEquals("Test that the Menu arraylist size is unchanged.", 2, menuList.size());
 
 		//Add a Menu that has missing detail to check that it does not add into the arraylist successfully - error
 		Menu menu_missing = new Menu("", "Steamed, Roasted, Soups, Noodles",2.3, 00001);
@@ -328,7 +328,7 @@ public class C206_CaseStudyTest {
 
 	}
 
-	// Kelvin
+	// KELVIN
 	@Test
 	public void c206_testDeleteMenu() {
 		// Test if the Menu list is not null and empty
@@ -340,27 +340,26 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addMenuMethod(menuList, menu2);
 		assertEquals("Test that Menu arraylist size is 2.", 2, menuList.size());
 
-		// The size of the list decreases by one after deleting one order
-		C206_CaseStudy.delMenuID(menuList, 799);
+		// The size of the list decreases by one after deleting a menu
+		C206_CaseStudy.delMenuID(menuList, 10);
 		assertEquals("Test that Menu arraylist size is 1", 1, menuList.size());
 
-		// Test the order not in the list is not deleted, the size of the list remains
-		// the same
-		C206_CaseStudy.delMenuID(menuList, 234567);
-		assertEquals("Test that the size of the list remain the same (1)", 1, menuList.size());
+		// Test the menu not in the list is not deleted, the size of the list remains the same
+		C206_CaseStudy.delMenuID(menuList, 21);
+		assertEquals("Test that the size of the menulist remain the same (1)", 1, menuList.size());
 
 
 	}
 
-	// EUGENE
+	// KELVIN
 	@Test
 	public void c206_testviewAllMenus() {
 		// Test Case 1
-		// Test if Item list is not null and empty
-		assertNotNull("Test if there is valid Users arraylist to add to", menuList);
-		assertEquals("Test that the menu arraylist is empty.", 0, menuList.size());
+		// Test if Menu list is not null and empty
+		assertNotNull("Test if there is valid Menus arraylist to add to", menuList);
+		assertEquals("Test that the menu arraylist is empty", 0, menuList.size());
 
-		// Attempt to retrieve the Order
+		// Attempt to retrieve the Menu
 		String allMenu = C206_CaseStudy.viewAllMenu(menuList);
 		String testOutput = "";
 
@@ -371,12 +370,12 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addMenuMethod(menuList, menu2);
 
 		// Test that the list is not empty
-		assertEquals("Test that menu arraylist size is 2.", 2, menuList.size());
+		assertEquals("Test that menu arraylist size is 2 ", 2, menuList.size());
 
-		// Attempt to retrieve the menu
+		// Attempt to retrieve the menus
 		allMenu = C206_CaseStudy.viewAllMenu(menuList);
 		testOutput = String.format("%-10s %-20s %-20.2f %-10d\n", "Italian", "Zuppe e salse(soups and sauces), Pane(bread), Pizzas, Pastas, Rice dishes, Carne(meat dishes and cured meats), Deserts and Pastries, Drinks", 7.99, 00001);
-		testOutput += String.format("%-10s %-20s %-20.2f %-10d\n", "Indian", "South Indian(dosa, idlis, vadas, Kerala Parotta), North Indian(chappathi, paneer, chicken 65, chicken tikka, aloo, dhal), Deserts and Pastries, Drinks", 5.99, 00002);
+		testOutput += String.format("%-10s %-20s %-20.2f %-10d\n", "Indian", "South Indian(dosa, idlis, vadas, Kerala parotta), North Indian(chappathi, paneer, chicken 65, chicken tikka, aloo, dhal), Deserts and Pastries, Drinks", 5.99, 00002);
 
 		// Test that the details are displayed correctly
 		assertEquals("Test that the display is correct.", testOutput, allMenu);
@@ -396,5 +395,9 @@ public class C206_CaseStudyTest {
 		user1 = null;
 		user2 = null;
 		UserList.clear();
+
+		menu1 = null;
+		menu2 = null;
+		menuList.clear();
 	}
 }
