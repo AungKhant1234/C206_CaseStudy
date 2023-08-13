@@ -33,8 +33,13 @@ public class C206_CaseStudy {
 		vendorList.add(new Vendor("100102", "KK comp", "83723573", "kkcomsg@gmail.com"));
 
 		menuList.add(new Menu("Italian", "Zuppe e salse(soups and sauces), Pane(bread), Drinks", 7.99, 1));
-		menuList.add(new Menu("Indian", "South Indian(dosa, Kerala Parotta), North Indian(chappathi, dhal), Drinks",
-				5.99, 2));
+		menuList.add(new Menu("Indian", "South Indian(dosa, Kerala Parotta), North Indian(chappathi, dhal), Drinks",5.99, 2));
+		
+		vendorList.add(new Vendor("100102", "KK comp", "83723573","kkcomsg@gmail.com"));
+		
+		menuList.add(new Menu("Italian", "Zuppe e salse(soups and sauces), Pane(bread), Pizzas, Pastas, Rice dishes, Carne(meat dishes and cured meats), Deserts and Pastries, Drinks", 7.99, 00001));
+		menuList.add(new Menu("Indian", "South Indian(dosa, idlis, vadas, Kerala Parotta), North Indian(chappathi, paneer, chicken 65, chicken tikka, aloo, dhal), Deserts and Pastries, Drinks", 5.99, 00002));
+
 
 		int option = 0;
 		while (option != 6) {
@@ -304,15 +309,19 @@ public class C206_CaseStudy {
 		for (int i = 0; i < orderList.size(); i++) {
 			item = orderList.get(i);
 			if (item.getOrderId().equalsIgnoreCase(orderID))
+				System.out.println("This Order with OrderID " + orderID + " is existed!");
 				return;
 		}
 		if ((orderID.isEmpty()) || (CName.isEmpty()) || (MNumber.isEmpty()) || (quantity.isEmpty())
 				|| (ITEM.isEmpty())) {
+		if ((orderID.isEmpty()) || (CName.isEmpty()) || (MNumber.isEmpty())||(quantity.isEmpty())||(ITEM.isEmpty())) {
+			System.out.println("Order with missing input failed to add! Please try again ");
 			return;
 		}
 
 		orderList.add(OD);
 		System.out.println("ORDER ADDED SUCCESSFULLY!");
+		}
 	}
 
 	// XUENI------------------------DELETE AN EXSITING ORDER FROM

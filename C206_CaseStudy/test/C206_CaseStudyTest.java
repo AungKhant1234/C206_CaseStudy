@@ -18,6 +18,10 @@ public class C206_CaseStudyTest {
 	private ArrayList<User> UserList;
 	private User user1;
 	private User user2;
+	
+	private ArrayList <Vendor> vendorList = new ArrayList<Vendor>();
+	private Vendor vendor1;
+	private Vendor vendor2;
 
 	private ArrayList<Menu> menuList;
 	private Menu menu1;
@@ -35,6 +39,9 @@ public class C206_CaseStudyTest {
 		user1 = new User("760001", "Johnny", "87459845", "Johnny123@gmail.com");
 		user2 = new User("760002", "Lily", "85478956", "Lily123@gmail.com");
 
+		vendor1 = new Vendor("100101", "BB companies", "83150820", "bbcompanies@gmail.com");
+		vendor2 = new Vendor("100102", "KK comp", "83723573","kkcomsg@gmail.com");
+		
 		menuList = new ArrayList<Menu>();
 		menu1 = new Menu("Italian", "Zuppe e salse(soups and sauces), Pane(bread), Drinks", 7.99, 1);
 		menu2 = new Menu("Indian", "South Indian(dosa, Kerala Parotta), North Indian(chappathi, dhal), Drinks", 5.99, 2);
@@ -262,7 +269,7 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.delUserID(UserList, "760001");
 		assertEquals("Test that User arraylist size is 1", 1, UserList.size());
 
-		// Test the order not in the list is not deleted, the size of the list remains
+		// Test the user not in the list is not deleted, the size of the list remains
 		// the same
 		C206_CaseStudy.delUserID(UserList, "76012");
 		assertEquals("Test that the size of the list remain the same which is 1", 1, UserList.size());
@@ -301,7 +308,90 @@ public class C206_CaseStudyTest {
 
 		// assertTrue("C206_CaseStudy_SampleTest ",true);
 	}
-	// KELVIN
+	
+
+	// Tomin
+		@Test
+		public void c206_testAddVendorMethod() {
+			// fail("Not yet implemented");
+			assertNotNull("Test if there is valid Vendor arraylist to add to", vendorList);
+			assertEquals("Test that the Vendor arraylist is empty.", 0, vendorList.size());
+			// Given an empty list, after adding 1 vendor, the size of the list becomes 1
+			C206_CaseStudy.addVendorMethod(vendorList, vendor1);
+			assertEquals("Test that the Vendor arraylist size is 1.", 1, vendorList.size());
+
+			// Add an item
+			C206_CaseStudy.addVendorMethod(vendorList, vendor2);
+			assertEquals("Test that the Vendor arraylist size is now 2.", 2, vendorList.size());
+			// The vendor just added is the same as the last item in the list
+			assertSame("Test that Vendor is added to the end of the list.", vendor2, vendorList.get(1));
+
+			// Add a vendor that already exists in the list
+			C206_CaseStudy.addVendorMethod(vendorList, vendor2);
+			assertEquals("Test that the Vendor arraylist size is unchange.", 2, vendorList.size());
+
+			//Add a vendor that has missing detail to check that it does not add into the arraylist successfully
+			Vendor vendor2 = new Vendor("100010", "chenway catering", "", "chenwaysg@gmail.com");
+			C206_CaseStudy.addVendorMethod(vendorList,vendor2);
+			assertEquals("Test that the Vendor arraylist size is unchange.", 2, vendorList.size());
+
+		}
+		// TOMIN
+		@Test
+		public void c206_testretrieveAllVendors() {
+			// Test Case 1
+			// Test if Item list is not null and empty
+			assertNotNull("Test if there is valid Vendors arraylist to add to", vendorList);
+			assertEquals("Test that the Vendor arraylist is empty.", 0, vendorList.size());
+
+			// Attempt to retrieve the Vendor
+			String allVendor = C206_CaseStudy.retrieveAllvendors(vendorList);
+			String testOutput = "";
+
+			// Test if the output is empty
+			assertEquals("Test that nothing is displayed", testOutput, allVendor);
+
+			C206_CaseStudy.addVendorMethod(vendorList, vendor1);
+			C206_CaseStudy.addVendorMethod(vendorList, vendor2);
+
+			// Test that the list is not empty
+			assertEquals("Test that Vendor arraylist size is 2.", 2, vendorList.size());
+
+			// Attempt to retrieve the Vendor
+			allVendor = C206_CaseStudy.retrieveAllvendors(vendorList);
+			testOutput = String.format("%-10s %-20s %-20s %-10s\n", "100101", "BB companies", "83150820", "bbcompanies@gmail.com");
+			testOutput += String.format("%-10s %-20s %-20s %-10s\n", "100102", "KK comp", "83723573","kkcomsg@gmail.com");
+
+			// Test that the details are displayed correctly
+			assertEquals("Test that the display is correct.", testOutput, allVendor);
+
+			// assertTrue("C206_CaseStudy_SampleTest ",true);
+		}
+		
+		// TOMIN
+		@Test
+		public void c206_testDeleteVendor() {
+			// Test if the Vendor list is not null and empty
+			assertNotNull("Test if there is valid Vendor arraylist to retrieve vendor from", vendorList);
+			assertEquals("Test that the Vendor arraylist is empty.", 0, vendorList.size());
+
+			// Test that the list is not empty before deleting
+			C206_CaseStudy.addVendorMethod(vendorList, vendor1);
+			C206_CaseStudy.addVendorMethod(vendorList, vendor2);
+			assertEquals("Test that vendor arraylist size is 2.", 2, vendorList.size());
+
+			// The size of the list decreases by one after deleting one Vendor
+			C206_CaseStudy.inputVendorId(vendorList, "100101");
+			assertEquals("Test that Vendor arraylist size is 1", 1, vendorList.size());
+
+			// Test the vendor not in the list is not deleted, the size of the list remains
+			// the same
+			C206_CaseStudy.inputVendorId(vendorList, "12002");
+			assertEquals("Test that the size of the list remain the same which is 1", 1, vendorList.size());
+
+
+		}
+		// KELVIN
 	@Test
 	public void c206_testAddMenuMethod() {
 		// fail("Not yet implemented");
@@ -396,6 +486,10 @@ public class C206_CaseStudyTest {
 		user2 = null;
 		UserList.clear();
 
+		vendor1 = null;
+		vendor2 = null;
+		vendorList.clear();
+		
 		menu1 = null;
 		menu2 = null;
 		menuList.clear();
