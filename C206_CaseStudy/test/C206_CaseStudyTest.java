@@ -308,32 +308,7 @@ public class C206_CaseStudyTest {
 
 		// assertTrue("C206_CaseStudy_SampleTest ",true);
 	}
-	// KELVIN
-	@Test
-	public void c206_testAddMenuMethod() {
-		// fail("Not yet implemented");
-		assertNotNull("Test if there is valid Menu arraylist to add to", menuList);
-		assertEquals("Test that the Menu arraylist is empty.", 0, menuList.size());
-		// Given an empty list, after adding 1 menu, the size of the list becomes 1 - normal
-		C206_CaseStudy.addMenuMethod(menuList, menu1);
-		assertEquals("Test that the Menu arraylist size is 1.", 1, menuList.size());
-
-		// Add an menu
-		C206_CaseStudy.addMenuMethod(menuList, menu2);
-		assertEquals("Test that the Menu arraylist size is now 2.", 2, menuList.size());
-		// The menu just added is the same as the last item in the list - normal
-		assertSame("Test that Menu is added to the end of the list.", menu2, menuList.get(1));
-
-		// Add a menu that already exists in the list
-		C206_CaseStudy.addMenuMethod(menuList, menu2);
-		assertEquals("Test that the Menu arraylist size is unchanged.", 2, menuList.size());
-
-		//Add a Menu that has missing detail to check that it does not add into the arraylist successfully - error
-		Menu menu_missing = new Menu("", "Steamed, Roasted, Soups, Noodles",2.3, 00001);
-		C206_CaseStudy.addMenuMethod(menuList, menu_missing);
-		assertEquals("Test that the Menu arraylist size is unchange.", 2, menuList.size());
-
-	}
+	
 
 	// Tomin
 		@Test
@@ -416,7 +391,32 @@ public class C206_CaseStudyTest {
 
 
 		}
-		
+		// KELVIN
+	@Test
+	public void c206_testAddMenuMethod() {
+		// fail("Not yet implemented");
+		assertNotNull("Test if there is valid Menu arraylist to add to", menuList);
+		assertEquals("Test that the Menu arraylist is empty.", 0, menuList.size());
+		// Given an empty list, after adding 1 menu, the size of the list becomes 1 - normal
+		C206_CaseStudy.addMenuMethod(menuList, menu1);
+		assertEquals("Test that the Menu arraylist size is 1.", 1, menuList.size());
+
+		// Add an menu
+		C206_CaseStudy.addMenuMethod(menuList, menu2);
+		assertEquals("Test that the Menu arraylist size is now 2.", 2, menuList.size());
+		// The menu just added is the same as the last item in the list - normal
+		assertSame("Test that Menu is added to the end of the list.", menu2, menuList.get(1));
+
+		// Add a menu that already exists in the list
+		C206_CaseStudy.addMenuMethod(menuList, menu2);
+		assertEquals("Test that the Menu arraylist size is unchanged.", 2, menuList.size());
+
+		//Add a Menu that has missing detail to check that it does not add into the arraylist successfully - error
+		Menu menu_missing = new Menu("", "Steamed, Roasted, Soups, Noodles",2.3, 00001);
+		C206_CaseStudy.addMenuMethod(menuList, menu_missing);
+		assertEquals("Test that the Menu arraylist size is unchange.", 2, menuList.size());
+
+	}
 
 	// KELVIN
 	@Test
@@ -486,6 +486,10 @@ public class C206_CaseStudyTest {
 		user2 = null;
 		UserList.clear();
 
+		vendor1 = null;
+		vendor2 = null;
+		vendorList.clear();
+		
 		menu1 = null;
 		menu2 = null;
 		menuList.clear();
