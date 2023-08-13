@@ -256,7 +256,7 @@ public class C206_CaseStudyTest {
 	// EUGENE
 	@Test
 	public void c206_testDeleteUser() {
-		// Test if the Order list is not null and empty
+		// Test if the User list is not null and empty
 		assertNotNull("Test if there is valid User arraylist to retrieve user from", UserList);
 		assertEquals("Test that the User arraylist is empty.", 0, UserList.size());
 
@@ -269,7 +269,7 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.delUserID(UserList, "760001");
 		assertEquals("Test that User arraylist size is 1", 1, UserList.size());
 
-		// Test the order not in the list is not deleted, the size of the list remains
+		// Test the user not in the list is not deleted, the size of the list remains
 		// the same
 		C206_CaseStudy.delUserID(UserList, "76012");
 		assertEquals("Test that the size of the list remain the same which is 1", 1, UserList.size());
@@ -285,7 +285,7 @@ public class C206_CaseStudyTest {
 		assertNotNull("Test if there is valid Users arraylist to add to", UserList);
 		assertEquals("Test that the User arraylist is empty.", 0, UserList.size());
 
-		// Attempt to retrieve the Order
+		// Attempt to retrieve the User
 		String allUser = C206_CaseStudy.retrieveAllUsers(UserList);
 		String testOutput = "";
 
