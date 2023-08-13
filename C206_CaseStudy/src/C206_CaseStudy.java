@@ -393,7 +393,7 @@ public class C206_CaseStudy {
 		return UM;
 	}
 
-	// EUGENE -------------------- Add new User Method to UserList
+	// EUGENE -------------------- Add new User to UserList
 	public static void addUserMethod(ArrayList<User> UserList, User UM) {
 		String mobilenum = UM.getMobileNumber();
 		String userid = UM.getUserId();
@@ -438,7 +438,7 @@ public class C206_CaseStudy {
 	
 
 
-	// EUGENE------------------------DELETE AN EXSITING ORDER FROM
+	// EUGENE------------------------DELETE AN EXSITING USER FROM
 	// USERLIST---------------------------------
 
 	public static boolean delUserID(ArrayList<User> UserList, String UserId) {
