@@ -382,6 +382,7 @@ public class C206_CaseStudy {
 		Helper.line(80, "-");
 	}
 
+	
 	// EUGENE --------- Ask user to enter their credentials for AddUsersMethod
 	public static User InputUsersMethod() {
 		String userid = Helper.readString("Enter ID > ");

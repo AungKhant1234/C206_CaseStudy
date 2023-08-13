@@ -291,7 +291,7 @@ public class C206_CaseStudyTest {
 		// Test that the list is not empty
 		assertEquals("Test that User arraylist size is 2.", 2, UserList.size());
 
-		// Attempt to retrieve the User
+		// Attempt to retrieve the Users
 		allUser = C206_CaseStudy.retrieveAllUsers(UserList);
 		testOutput = String.format("%-10s %-20s %-20s %-10s\n", "760001", "Johnny", "87459845", "Johnny123@gmail.com");
 		testOutput += String.format("%-10s %-20s %-20s %-10s\n", "760002", "Lily", "85478956", "Lily123@gmail.com");
