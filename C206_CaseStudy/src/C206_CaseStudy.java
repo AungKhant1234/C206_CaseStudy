@@ -32,8 +32,8 @@ public class C206_CaseStudy {
 		vendorList.add(new Vendor("100101", "BB companies", "83150820", "bbcompanies@gmail.com"));
 		vendorList.add(new Vendor("100102", "KK comp", "83723573","kkcomsg@gmail.com"));
 		
-		menuList.add(new Menu("Italian", "Zuppe e salse(soups and sauces), Pane(bread), Drinks", 7.99, 1));
-		menuList.add(new Menu("Indian", "South Indian(dosa, Kerala Parotta), North Indian(chappathi, dhal), Drinks", 5.99, 2));
+		menuList.add(new Menu("Italian", "Zuppe e salse(soups and sauces), Pane(bread), Pizzas, Pastas, Rice dishes, Carne(meat dishes and cured meats), Deserts and Pastries, Drinks", 7.99, 00001));
+		menuList.add(new Menu("Indian", "South Indian(dosa, idlis, vadas, Kerala Parotta), North Indian(chappathi, paneer, chicken 65, chicken tikka, aloo, dhal), Deserts and Pastries, Drinks", 5.99, 00002));
 
 		int option = 0;
 		while (option != 6) {
@@ -68,7 +68,7 @@ public class C206_CaseStudy {
 	}
 
 	public static void mainMenu() {
-		setHeader("SCHOOL LUNCH BOX ONINE ORDERING SYSTEM");
+		setHeader("SHCOOL LUNCH BOX ONINE ORDERING SYSTEM");
 		System.out.println("1. USERS OPTIONS");
 		System.out.println("2. ORDER OPTIONS ");
 		System.out.println("3. PAYMENT METHOD OPTIONS");
@@ -304,9 +304,11 @@ public class C206_CaseStudy {
 		for (int i = 0; i < orderList.size(); i++) {
 			item = orderList.get(i);
 			if (item.getOrderId().equalsIgnoreCase(orderID))
+				System.out.println("This Order with OrderID " + orderID + " is existed!");
 				return;
 		}
 		if ((orderID.isEmpty()) || (CName.isEmpty()) || (MNumber.isEmpty())||(quantity.isEmpty())||(ITEM.isEmpty())) {
+			System.out.println("Order with missing input failed to add! Please try again ");
 			return;
 		}
 
@@ -486,7 +488,7 @@ public class C206_CaseStudy {
 			} else if (option == OPTION_VIEW) {
 				viewAllVendors(vendorList);
 			} else if (option == OPTION_DELETE) {
-				inputVendorId(vendorList);
+				deleteVendor(vendorList);
 			} else if (option == OPTION_QUIT) {
 				System.out.println("RETURNING TO MAIN MENU!");
 			} else {
@@ -506,7 +508,7 @@ public class C206_CaseStudy {
 		
 		// TOMIN-------------------RETRIEVE ALL VENDORS FROM VendorList IN ORDER TO
 		// VIEW IT-----------------------------------
-		public static String retrieveAllVendors(ArrayList<Vendor> vendorList) {
+		public static String retrieveAllvendors(ArrayList<Vendor> vendorList) {
 			String output = "";
 
 			for (int i = 0; i < vendorList.size(); i++) {
@@ -552,13 +554,13 @@ public class C206_CaseStudy {
 		public static void viewAllVendors(ArrayList<Vendor> vendorList) {
 			C206_CaseStudy.setHeader("VENDOR LIST");
 			String output = String.format("%-10s %-20s %-20s %-10s\n", "VENDOR ID", "VENDOR NAME", "MOBILE NUMBER", "EMAIL");
-			output += retrieveAllVendors(vendorList);
+			output += retrieveAllvendors(vendorList);
 			System.out.println(output);
 		}
 
 		// TOMIN------------------------DELETE AN EXSITING VENDOR FROM
 		// LIST---------------------------------
-		public static boolean deleteVendorID (ArrayList<Vendor> vendorList, String VendorId) {
+		public static boolean inputVendorId(ArrayList<Vendor> vendorList, String VendorId) {
 			boolean isDeleted = false;
 
 			for (int i = 0; i < vendorList.size(); i++) {
@@ -570,10 +572,10 @@ public class C206_CaseStudy {
 			return isDeleted;
 		}
 
-		public static void inputVendorId(ArrayList<Vendor> vendorList) {
+		public static void deleteVendor(ArrayList<Vendor> vendorList) {
 			C206_CaseStudy.viewAllVendors(vendorList);
 			String VendorId = Helper.readString("Enter the Vendor ID you wish to delete > ");
-			Boolean isDeleted = deleteVendorID(vendorList, VendorId);
+			Boolean isDeleted = inputVendorId(vendorList, VendorId);
 
 			if (isDeleted == false) {
 				System.out.println("No vendor ID found.");
