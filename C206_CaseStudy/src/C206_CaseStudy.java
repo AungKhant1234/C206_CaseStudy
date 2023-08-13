@@ -269,7 +269,7 @@ public class C206_CaseStudy {
 		String output = "";
 
 		for (int i = 0; i < orderList.size(); i++) {
-			output += String.format("%-85s\n", orderList.get(i).toString());
+			output += String.format("%-79s\n", orderList.get(i).toString());
 		}
 		return output;
 	}
@@ -308,12 +308,11 @@ public class C206_CaseStudy {
 
 		for (int i = 0; i < orderList.size(); i++) {
 			item = orderList.get(i);
-			if (item.getOrderId().equalsIgnoreCase(orderID))
-				System.out.println("This Order with OrderID " + orderID + " is existed!");
+			if (item.getOrderId().equalsIgnoreCase(orderID)) {
+				System.out.println("This Order with OrderID " + orderID + " is existing in the list!");
 				return;
+			}
 		}
-		if ((orderID.isEmpty()) || (CName.isEmpty()) || (MNumber.isEmpty()) || (quantity.isEmpty())
-				|| (ITEM.isEmpty())) {
 		if ((orderID.isEmpty()) || (CName.isEmpty()) || (MNumber.isEmpty())||(quantity.isEmpty())||(ITEM.isEmpty())) {
 			System.out.println("Order with missing input failed to add! Please try again ");
 			return;
@@ -321,7 +320,7 @@ public class C206_CaseStudy {
 
 		orderList.add(OD);
 		System.out.println("ORDER ADDED SUCCESSFULLY!");
-		}
+		
 	}
 
 	// XUENI------------------------DELETE AN EXSITING ORDER FROM

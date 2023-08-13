@@ -106,9 +106,8 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addPaymentMethod(paymentMethod, py2);
 		assertEquals("Test that PaymentMethod arraylist size is 2", 2, paymentMethod.size());
 
-		// test if the expected output string same as the list of Payment Methods
-		// retrieved
-		// from the SourceCentre
+		// test if the expected output string is the same as the list of Payment Methods
+		// retrieved from the SourceCentre - normal
 		allPaymentMethod = C206_CaseStudy.retrieveAllPaymentMethod(paymentMethod);
 		testOutput = String.format("%-15s %-15s %-15d %-15s %-15s\n", "John", "111222", 1234, "OCBC", "VISA");
 		testOutput += String.format("%-15s %-15s %-15d %-15s %-15s\n", "Marry", "222111", 4321, "DBS", "NETS");
@@ -134,11 +133,11 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.deletePaymentMethod(paymentMethod, py2);
 		assertEquals("Test that PaymentMethod arraylist size is 1", 1, paymentMethod.size());
 
-		// Test if the remaining payment method is the one that wasn't deleted - normal
+		// Test that the remaining payment method is the one that wasn't deleted - normal
 		assertSame("Test that the remaining PaymentMethod is the correct one", py1, paymentMethod.get(0));
 
 		// Given a payment method which isn't in the list,
-		// Test if the size of the list doesn't change and remain the same.
+		// Test that the size of the list doesn't change and remain the same. - error
 		C206_CaseStudy.deletePaymentMethod(paymentMethod, py3);
 		assertEquals("Test that the size of the list remain the same (1)", 1, paymentMethod.size());
 
@@ -156,7 +155,7 @@ public class C206_CaseStudyTest {
 
 		// Add an item
 		C206_CaseStudy.addNewOrder(orderList, order2);
-		assertEquals("Test that the Camcorder arraylist size is now 2.", 2, orderList.size());
+		assertEquals("Test that the order arraylist size is now 2.", 2, orderList.size());
 		// The item just added is as same as the last item in the list
 		assertSame("Test that Order is added to the end of the list.", order2, orderList.get(1));
 
@@ -194,7 +193,7 @@ public class C206_CaseStudyTest {
 
 		// Attempt to retrieve the Order
 		allOrder = C206_CaseStudy.retrieveAllOrders(orderList);
-		testOutput = String.format("%-10s %-20s %-20s %-10s %-15s\n", "OD25", "Johnny", "87459845", "2","Pizzas");
+		testOutput = String.format("%-10s %-20s %-20s %-10s %-15s\n", "OD25", "Johnny", "87459845", "2", "Pizzas");
 		testOutput += String.format("%-10s %-20s %-20s %-10s %-15s\n", "OD26", "Lily", "85478956", "1", "Drinks");
 
 		// Test that the details are displayed correctly
