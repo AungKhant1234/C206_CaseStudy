@@ -278,7 +278,7 @@ public class C206_CaseStudyTest {
 		assertNotNull("Test if there is valid Users arraylist to add to", UserList);
 		assertEquals("Test that the User arraylist is empty.", 0, UserList.size());
 
-		// Attempt to retrieve the Order
+		// Attempt to retrieve the User
 		String allUser = C206_CaseStudy.retrieveAllUsers(UserList);
 		String testOutput = "";
 

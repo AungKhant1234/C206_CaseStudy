@@ -14,26 +14,27 @@ public class C206_CaseStudy {
 
 	private static ArrayList<User> UserList = new ArrayList<User>();
 	private static ArrayList<Vendor> vendorList = new ArrayList<Vendor>();
-	
+
 	private static ArrayList<Menu> menuList = new ArrayList<Menu>();
-	
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 		paymentMethod.add(new PaymentMethod("Lily", "700300", 3232, "POSB", "MASTER"));
 		paymentMethod.add(new PaymentMethod("Johnny", "100200", 5678, "UOB", "CREDIT CARD"));
 
-		orderList.add(new Order("OD25", "Johnny", "87459845", "2","Pizzas"));
-		orderList.add(new Order("OD26", "Lily", "85478956", "1","Drinks"));
+		orderList.add(new Order("OD25", "Johnny", "87459845", "2", "Pizzas"));
+		orderList.add(new Order("OD26", "Lily", "85478956", "1", "Drinks"));
 
 		UserList.add(new User("760001", "Johnny", "87459845", "Johnny123@gmail.com"));
 		UserList.add(new User("760002", "Lily", "85478956", "Lily123@gmail.com"));
 
 		vendorList.add(new Vendor("100101", "BB companies", "83150820", "bbcompanies@gmail.com"));
-		vendorList.add(new Vendor("100102", "KK comp", "83723573","kkcomsg@gmail.com"));
-		
+		vendorList.add(new Vendor("100102", "KK comp", "83723573", "kkcomsg@gmail.com"));
+
 		menuList.add(new Menu("Italian", "Zuppe e salse(soups and sauces), Pane(bread), Drinks", 7.99, 1));
-		menuList.add(new Menu("Indian", "South Indian(dosa, Kerala Parotta), North Indian(chappathi, dhal), Drinks", 5.99, 2));
+		menuList.add(new Menu("Indian", "South Indian(dosa, Kerala Parotta), North Indian(chappathi, dhal), Drinks",
+				5.99, 2));
 
 		int option = 0;
 		while (option != 6) {
@@ -50,7 +51,7 @@ public class C206_CaseStudy {
 
 			} else if (option == OPTION_VENDOR) {
 				vendorOptions();
-				
+
 			} else if (option == OPTION_MENU) {
 				menuOptions();
 
@@ -125,7 +126,7 @@ public class C206_CaseStudy {
 		String postalCode = Helper.readString("Enter postal code > ");
 		int last4Digit = Helper.readInt("Enter the last 4 digit of the card > ");
 		boolean check = Pattern.matches(patternLast4Digit, Integer.toString(last4Digit));
-		while(!check) {
+		while (!check) {
 			System.out.println("PLEASE ENTER 4 INTEGERS!!");
 			last4Digit = Helper.readInt("Enter the last 4 digit of the card > ");
 			check = Pattern.matches(patternLast4Digit, Integer.toString(last4Digit));
@@ -213,12 +214,11 @@ public class C206_CaseStudy {
 						return;
 					}
 				}
-			}
-			else {
+			} else {
 				return;
 			}
 		}
-			System.out.println("This payment method doesn't exist in the system!\n");	
+		System.out.println("This payment method doesn't exist in the system!\n");
 	}
 
 	// XUENI --------- A method created to handle everything related to
@@ -274,7 +274,7 @@ public class C206_CaseStudy {
 	public static void viewAllOrders(ArrayList<Order> orderList) {
 		C206_CaseStudy.setHeader("ORDER LIST");
 		String output = String.format("%-10s %-20s %-20s %-10s %-15s\n", "ORDER ID", "CUSTOMER NAME", "MOBILE NUMBER",
-				"QUANTITY","ITEM NAME");
+				"QUANTITY", "ITEM NAME");
 		output += retrieveAllOrders(orderList);
 		System.out.println(output);
 	}
@@ -288,7 +288,7 @@ public class C206_CaseStudy {
 		String quantity = Helper.readString("Enter the Quantity > ");
 		String itemName = Helper.readString("Enter the food item > ");
 
-		Order OD = new Order(OrderID, customerName, mobileNo, quantity,itemName);
+		Order OD = new Order(OrderID, customerName, mobileNo, quantity, itemName);
 		return OD;
 
 	}
@@ -300,13 +300,14 @@ public class C206_CaseStudy {
 		String MNumber = OD.getMobileNumber();
 		String quantity = OD.getquantity();
 		String ITEM = OD.getitemName();
-		
+
 		for (int i = 0; i < orderList.size(); i++) {
 			item = orderList.get(i);
 			if (item.getOrderId().equalsIgnoreCase(orderID))
 				return;
 		}
-		if ((orderID.isEmpty()) || (CName.isEmpty()) || (MNumber.isEmpty())||(quantity.isEmpty())||(ITEM.isEmpty())) {
+		if ((orderID.isEmpty()) || (CName.isEmpty()) || (MNumber.isEmpty()) || (quantity.isEmpty())
+				|| (ITEM.isEmpty())) {
 			return;
 		}
 
@@ -318,7 +319,7 @@ public class C206_CaseStudy {
 	// ORDERLIST---------------------------------
 	public static boolean inputOrderID(ArrayList<Order> orderList, String OrderID) {
 		boolean isDeleted = false;
-		
+
 		for (int i = 0; i < orderList.size(); i++) {
 			if (OrderID.equalsIgnoreCase(orderList.get(i).getOrderId())) {
 				orderList.remove(i);
@@ -337,8 +338,8 @@ public class C206_CaseStudy {
 
 		if (isDeleted == false) {
 			System.out.println("No Order ID found.");
-			
-		}else {
+
+		} else {
 			System.out.println("Order ID " + OrderID + " removed successfully!");
 		}
 	}
@@ -357,8 +358,8 @@ public class C206_CaseStudy {
 			System.out.println("");
 
 			if (option == OPTION_ADD) {
-				User UM  = InputUsersMethod();
-				addUserMethod(UserList,UM);
+				User UM = InputUsersMethod();
+				addUserMethod(UserList, UM);
 			} else if (option == OPTION_VIEW) {
 				viewAllUsers(UserList);
 			} else if (option == OPTION_DELETE) {
@@ -434,9 +435,6 @@ public class C206_CaseStudy {
 		output += retrieveAllUsers(UserList);
 		System.out.println(output);
 	}
-	
-	
-
 
 	// EUGENE------------------------DELETE AN EXSITING USER FROM
 	// USERLIST---------------------------------
@@ -458,7 +456,6 @@ public class C206_CaseStudy {
 		String UserID = Helper.readString("Enter the User ID you wish to delete > ");
 		Boolean isDeleted = delUserID(UserList, UserID);
 
-		
 		if (isDeleted == false) {
 			System.out.println("No user ID found.");
 
@@ -467,7 +464,7 @@ public class C206_CaseStudy {
 		}
 	}
 
-	// TOMIN ------ A method created to handle everything related to 
+	// TOMIN ------ A method created to handle everything related to
 	// Vendors (ADD/VIEW/DELETE)
 	public static void vendorOptions() {
 		int option = 0;
@@ -481,8 +478,8 @@ public class C206_CaseStudy {
 			System.out.println("");
 
 			if (option == OPTION_ADD) {
-				Vendor vn  = InputVendor();
-				addVendorMethod(vendorList,vn);
+				Vendor vn = InputVendor();
+				addVendorMethod(vendorList, vn);
 			} else if (option == OPTION_VIEW) {
 				viewAllVendors(vendorList);
 			} else if (option == OPTION_DELETE) {
@@ -494,215 +491,219 @@ public class C206_CaseStudy {
 			}
 		}
 	}
+
 	// TOMIN --------- Menu Created for Vendor Options ------
-		public static void vendorMenu() {
-			setHeader("OPTIONS FOR VENDOR");
-			System.out.println("1. ADD A NEW VENDOR ");
-			System.out.println("2. VIEW ALL VENDORS ");
-			System.out.println("3. DELETE AN EXISTING VENDOR ");
-			System.out.println("4. RETURN TO MAIN MENU");
-			Helper.line(80, "-");
-		}
-		
-		// TOMIN-------------------RETRIEVE ALL VENDORS FROM VendorList IN ORDER TO
-		// VIEW IT-----------------------------------
-		public static String retrieveAllvendors(ArrayList<Vendor> vendorList) {
-			String output = "";
+	public static void vendorMenu() {
+		setHeader("OPTIONS FOR VENDOR");
+		System.out.println("1. ADD A NEW VENDOR ");
+		System.out.println("2. VIEW ALL VENDORS ");
+		System.out.println("3. DELETE AN EXISTING VENDOR ");
+		System.out.println("4. RETURN TO MAIN MENU");
+		Helper.line(80, "-");
+	}
 
-			for (int i = 0; i < vendorList.size(); i++) {
-				output += String.format("%-10s %-20s %-20s %-10s\n", vendorList.get(i).getVendorId(),
-						vendorList.get(i).getvendorName(), vendorList.get(i).getMobileNumber(), vendorList.get(i).getEmail());
-			}
-			return output;
-		}
-		// TOMIN --------- Ask admin to enter their credentials for AddVendorMethod
-		public static Vendor InputVendor() {
-			String VendorId = Helper.readString("Enter ID > ");
-			String vendorName = Helper.readString("Enter Vendorname > ");
-			String mobilenum = Helper.readString("Enter mobile number > ");
-			String email = Helper.readString("Enter email > ");
-			Helper.line(80, "-");
-			Vendor vn = new Vendor(VendorId, vendorName, mobilenum, email);
+	// TOMIN-------------------RETRIEVE ALL VENDORS FROM VendorList IN ORDER TO
+	// VIEW IT-----------------------------------
+	public static String retrieveAllvendors(ArrayList<Vendor> vendorList) {
+		String output = "";
 
-			return vn;
+		for (int i = 0; i < vendorList.size(); i++) {
+			output += String.format("%-10s %-20s %-20s %-10s\n", vendorList.get(i).getVendorId(),
+					vendorList.get(i).getvendorName(), vendorList.get(i).getMobileNumber(),
+					vendorList.get(i).getEmail());
 		}
+		return output;
+	}
 
-		// TOMIN -------------------- Add new Vendor Method to VendorList
-		public static void addVendorMethod(ArrayList<Vendor> vendorList, Vendor vn) {
-			String mobilenum = vn.getMobileNumber();
-			String VendorId = vn.getVendorId();
-			String vendorName = vn.getvendorName();
-			String email = vn.getEmail();
-			for (Vendor Vendors : vendorList) {
-				if (Vendors.getVendorId() == VendorId) {
-					System.out.println("This Vendor already exists in the system.\n");
-					return;
-				}
-			}
-			if (mobilenum.isEmpty() || vendorName.isEmpty() || email.isEmpty() || VendorId.isEmpty()) {
-				System.out.println("There are missing informations.\nPlease make sure to fill out everything!\n");
+	// TOMIN --------- Ask admin to enter their credentials for AddVendorMethod
+	public static Vendor InputVendor() {
+		String VendorId = Helper.readString("Enter ID > ");
+		String vendorName = Helper.readString("Enter Vendorname > ");
+		String mobilenum = Helper.readString("Enter mobile number > ");
+		String email = Helper.readString("Enter email > ");
+		Helper.line(80, "-");
+		Vendor vn = new Vendor(VendorId, vendorName, mobilenum, email);
+
+		return vn;
+	}
+
+	// TOMIN -------------------- Add new Vendor Method to VendorList
+	public static void addVendorMethod(ArrayList<Vendor> vendorList, Vendor vn) {
+		String mobilenum = vn.getMobileNumber();
+		String VendorId = vn.getVendorId();
+		String vendorName = vn.getvendorName();
+		String email = vn.getEmail();
+		for (Vendor Vendors : vendorList) {
+			if (Vendors.getVendorId() == VendorId) {
+				System.out.println("This Vendor already exists in the system.\n");
 				return;
 			}
-			vendorList.add(vn);
-			System.out.println("USER SUCCESSFULLY ADDED!\n");
-
 		}
-		// TOMIN-----------------------VIEW ALL VENDOR FROM THE
-		// VENDORLIST----------------------------------------
-		public static void viewAllVendors(ArrayList<Vendor> vendorList) {
-			C206_CaseStudy.setHeader("VENDOR LIST");
-			String output = String.format("%-10s %-20s %-20s %-10s\n", "VENDOR ID", "VENDOR NAME", "MOBILE NUMBER", "EMAIL");
-			output += retrieveAllvendors(vendorList);
-			System.out.println(output);
+		if (mobilenum.isEmpty() || vendorName.isEmpty() || email.isEmpty() || VendorId.isEmpty()) {
+			System.out.println("There are missing informations.\nPlease make sure to fill out everything!\n");
+			return;
 		}
+		vendorList.add(vn);
+		System.out.println("USER SUCCESSFULLY ADDED!\n");
 
-		// TOMIN------------------------DELETE AN EXSITING VENDOR FROM
-		// LIST---------------------------------
-		public static boolean inputVendorId(ArrayList<Vendor> vendorList, String VendorId) {
-			boolean isDeleted = false;
+	}
 
-			for (int i = 0; i < vendorList.size(); i++) {
-				if (VendorId.equalsIgnoreCase(vendorList.get(i).getVendorId())) {
-					vendorList.remove(i);
-					isDeleted = true;
-				}
+	// TOMIN-----------------------VIEW ALL VENDOR FROM THE
+	// VENDORLIST----------------------------------------
+	public static void viewAllVendors(ArrayList<Vendor> vendorList) {
+		C206_CaseStudy.setHeader("VENDOR LIST");
+		String output = String.format("%-10s %-20s %-20s %-10s\n", "VENDOR ID", "VENDOR NAME", "MOBILE NUMBER",
+				"EMAIL");
+		output += retrieveAllvendors(vendorList);
+		System.out.println(output);
+	}
+
+	// TOMIN------------------------DELETE AN EXSITING VENDOR FROM
+	// LIST---------------------------------
+	public static boolean inputVendorId(ArrayList<Vendor> vendorList, String VendorId) {
+		boolean isDeleted = false;
+
+		for (int i = 0; i < vendorList.size(); i++) {
+			if (VendorId.equalsIgnoreCase(vendorList.get(i).getVendorId())) {
+				vendorList.remove(i);
+				isDeleted = true;
 			}
-			return isDeleted;
 		}
+		return isDeleted;
+	}
 
-		public static void deleteVendor(ArrayList<Vendor> vendorList) {
-			C206_CaseStudy.viewAllVendors(vendorList);
-			String VendorId = Helper.readString("Enter the Vendor ID you wish to delete > ");
-			Boolean isDeleted = inputVendorId(vendorList, VendorId);
+	public static void deleteVendor(ArrayList<Vendor> vendorList) {
+		C206_CaseStudy.viewAllVendors(vendorList);
+		String VendorId = Helper.readString("Enter the Vendor ID you wish to delete > ");
+		Boolean isDeleted = inputVendorId(vendorList, VendorId);
 
-			if (isDeleted == false) {
-				System.out.println("No vendor ID found.");
+		if (isDeleted == false) {
+			System.out.println("No vendor ID found.");
 
+		} else {
+			System.out.println("Vendor ID " + VendorId + " removed successfully!");
+		}
+	}
+
+	// KELVIN --------- A method created to handle everything related to
+	// Menu (ADD/ VIEW/ DELETE)
+	public static void menuOptions() {
+		int option = 0;
+		final int OPTION_QUIT = 4;
+		final int OPTION_DELETE = 3;
+		final int OPTION_VIEW = 2;
+		final int OPTION_ADD = 1;
+		while (option != 4) {
+			MenusMenu();
+			option = Helper.readInt("Enter an Option to Proceed > ");
+			System.out.println("");
+
+			if (option == OPTION_ADD) {
+				Menu MN = InputMenuMethod();
+				addMenuMethod(menuList, MN);
+			} else if (option == OPTION_VIEW) {
+				viewAllMenus(menuList);
+			} else if (option == OPTION_DELETE) {
+				deleteMenuID(menuList);
+			} else if (option == OPTION_QUIT) {
+				System.out.println("RETURNING TO MAIN MENU!");
 			} else {
-				System.out.println("Vendor ID " + VendorId + " removed successfully!");
+				System.out.println("INVALID OPTION. PLEASE CHOOSE AGAIN!\n");
 			}
 		}
+	}
 
-		// KELVIN --------- A method created to handle everything related to
-		// Menu (ADD/ VIEW/ DELETE)
-		public static void menuOptions() {
-			int option = 0;
-			final int OPTION_QUIT = 4;
-			final int OPTION_DELETE = 3;
-			final int OPTION_VIEW = 2;
-			final int OPTION_ADD = 1;
-			while (option != 4) {
-				MenusMenu();
-				option = Helper.readInt("Enter an Option to Proceed > ");
-				System.out.println("");
+	// KELVIN --------- Menu Created for Menus Method Options ------
+	public static void MenusMenu() {
+		setHeader("OPTIONS FOR MENUS");
+		System.out.println("1. ADD A NEW MENUS ");
+		System.out.println("2. VIEW ALL MENUS ");
+		System.out.println("3. DELETE AN EXISTING MENU/MENUS ");
+		System.out.println("4. RETURN TO MAIN MENU");
+		Helper.line(80, "-");
+	}
 
-				if (option == OPTION_ADD) {
-					Menu MN  = InputMenuMethod();
-					addMenuMethod(menuList,MN);
-				} else if (option == OPTION_VIEW) {
-					viewAllMenus(menuList);
-				} else if (option == OPTION_DELETE) {
-					deleteMenuID(menuList);
-				} else if (option == OPTION_QUIT) {
-					System.out.println("RETURNING TO MAIN MENU!");
-				} else {
-					System.out.println("INVALID OPTION. PLEASE CHOOSE AGAIN!\n");
-				}
-			}
-		}
-		// KELVIN --------- Menu Created for Menus Method Options ------
-		public static void MenusMenu() {
-			setHeader("OPTIONS FOR MENUS");
-			System.out.println("1. ADD A NEW MENUS ");
-			System.out.println("2. VIEW ALL MENUS ");
-			System.out.println("3. DELETE AN EXISTING MENU/MENUS ");
-			System.out.println("4. RETURN TO MAIN MENU");
-			Helper.line(80, "-");
-		}
+	// KELVIN --------- Ask user to enter Menu for AddUsersMethod
+	public static Menu InputMenuMethod() {
+		String name = Helper.readString("Enter Menu Name > ");
+		String description = Helper.readString("Enter Menu Description > ");
+		double price = Helper.readDouble("Enter Menu Starting Price (cheapest item on the menu) > ");
+		int id = Helper.readInt("Enter Menu Id > ");
+		Helper.line(80, "-");
+		Menu MN = new Menu(name, description, price, id);
 
-		// KELVIN --------- Ask user to enter Menu for AddUsersMethod
-		public static Menu InputMenuMethod() {
-			String name = Helper.readString("Enter Menu Name > ");
-			String description = Helper.readString("Enter Menu Description > ");
-			double price = Helper.readDouble("Enter Menu Starting Price (cheapest item on the menu) > ");
-			int id = Helper.readInt("Enter Menu Id > ");
-			Helper.line(80, "-");
-			Menu MN = new Menu(name, description, price, id);
+		return MN;
+	}
 
-			return MN;
-		}
-
-		// KELVIN -------------------- Add new User Method to UserList
-		public static void addMenuMethod(ArrayList<Menu> menuList, Menu MN) {
-			String name = MN.getName();
-			String description = MN.getDescription();
-			double price = MN.getPrice();
-			int id = MN.getId();
-			for (Menu Menus : menuList) {
-				if (id == Menus.getId()) {
-					System.out.println("This Menu already exists in the system.\n");
-					return;
-				}
-			}
-			if (name.isEmpty() || description.isEmpty() || Double.toString(price).isEmpty() || Integer.toString(id).isEmpty()) {
-				System.out.println("There are missing information.\nPlease fill out all the information!\n");
+	// KELVIN -------------------- Add new User Method to UserList
+	public static void addMenuMethod(ArrayList<Menu> menuList, Menu MN) {
+		String name = MN.getName();
+		String description = MN.getDescription();
+		double price = MN.getPrice();
+		int id = MN.getId();
+		for (Menu Menus : menuList) {
+			if (id == Menus.getId()) {
+				System.out.println("This Menu already exists in the system.\n");
 				return;
 			}
-			menuList.add(MN);
-			System.out.println("MENU SUCCESSFULLY ADDED!\n");
-
 		}
-
-		// KELVIN -------------------RETRIEVE ALL USER LIST FROM UserList IN ORDER TO
-		// VIEW IT-----------------------------------
-		public static String viewAllMenu(ArrayList<Menu> menuList) {
-			String output = "";
-
-			for (int i = 0; i < menuList.size(); i++) {
-				output += String.format("%-10s %-20s %-20s %-10s\n", menuList.get(i).getId(),
-						menuList.get(i).getName(), menuList.get(i).getPrice(), menuList.get(i).getDescription());
-			}
-			return output;
+		if (name.isEmpty() || description.isEmpty() || Double.toString(price).isEmpty()
+				|| Integer.toString(id).isEmpty()) {
+			System.out.println("There are missing information.\nPlease fill out all the information!\n");
+			return;
 		}
+		menuList.add(MN);
+		System.out.println("MENU SUCCESSFULLY ADDED!\n");
 
-		// KELVIN -----------------------VIEW ALL USER FROM THE
-		// USERLIST----------------------------------------
-		public static void viewAllMenus(ArrayList<Menu> menuList) {
-			C206_CaseStudy.setHeader("USER LIST");
-			String output = String.format("%-10s %-20s %-20s %-10s\n", "MENU ID", "MENU NAME", "STARTING PRICE", "DESCRIPTION");
-			output += viewAllMenu(menuList);
-			System.out.println(output);
+	}
+
+	// KELVIN -------------------RETRIEVE ALL USER LIST FROM UserList IN ORDER TO
+	// VIEW IT-----------------------------------
+	public static String viewAllMenu(ArrayList<Menu> menuList) {
+		String output = "";
+
+		for (int i = 0; i < menuList.size(); i++) {
+			output += String.format("%-10s %-20s %-20s %-10s\n", menuList.get(i).getId(), menuList.get(i).getName(),
+					menuList.get(i).getPrice(), menuList.get(i).getDescription());
 		}
-		
-		
+		return output;
+	}
 
+	// KELVIN -----------------------VIEW ALL USER FROM THE
+	// USERLIST----------------------------------------
+	public static void viewAllMenus(ArrayList<Menu> menuList) {
+		C206_CaseStudy.setHeader("USER LIST");
+		String output = String.format("%-10s %-20s %-20s %-10s\n", "MENU ID", "MENU NAME", "STARTING PRICE",
+				"DESCRIPTION");
+		output += viewAllMenu(menuList);
+		System.out.println(output);
+	}
 
-		// KELVIN ------------------------DELETE AN EXSITING ORDER FROM
-		// USERLIST---------------------------------
+	// KELVIN ------------------------DELETE AN EXSITING ORDER FROM
+	// USERLIST---------------------------------
 
-		public static boolean delMenuID(ArrayList<Menu> menuList, int Id) {
-			boolean isDeleted = false;
+	public static boolean delMenuID(ArrayList<Menu> menuList, int Id) {
+		boolean isDeleted = false;
 
-			for (int i = 0; i < menuList.size(); i++) {
-				if (Id== menuList.get(i).getId()) {
-					menuList.remove(i);
-					isDeleted = true;
-				}
-			}
-			return isDeleted;
-		}
-
-		public static void deleteMenuID(ArrayList<Menu> menuList) {
-			C206_CaseStudy.viewAllMenu(menuList);
-			int umenuId = Helper.readInt("Enter The Menu ID You Wish To Delete > ");
-			Boolean isDeleted = delMenuID(menuList, umenuId);
-
-			
-			if (isDeleted == false) {
-				System.out.println("No Menu ID found.");
-
-			} else {
-				System.out.println("Menu ID " + umenuId + " removed successfully!");
+		for (int i = 0; i < menuList.size(); i++) {
+			if (Id == menuList.get(i).getId()) {
+				menuList.remove(i);
+				isDeleted = true;
 			}
 		}
+		return isDeleted;
+	}
+
+	public static void deleteMenuID(ArrayList<Menu> menuList) {
+		C206_CaseStudy.viewAllMenu(menuList);
+		int umenuId = Helper.readInt("Enter The Menu ID You Wish To Delete > ");
+		Boolean isDeleted = delMenuID(menuList, umenuId);
+
+		if (isDeleted == false) {
+			System.out.println("No Menu ID found.");
+
+		} else {
+			System.out.println("Menu ID " + umenuId + " removed successfully!");
+		}
+	}
 }
