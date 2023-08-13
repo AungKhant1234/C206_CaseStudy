@@ -440,7 +440,7 @@ public class C206_CaseStudy {
 	
 
 
-	// EUGENE------------------------DELETE AN EXSITING ORDER FROM
+	// EUGENE------------------------DELETE AN EXSITING USER FROM
 	// USERLIST---------------------------------
 
 	public static boolean delUserID(ArrayList<User> UserList, String UserId) {
