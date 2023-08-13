@@ -68,7 +68,7 @@ public class C206_CaseStudy {
 	}
 
 	public static void mainMenu() {
-		setHeader("SHCOOL LUNCH BOX ONINE ORDERING SYSTEM");
+		setHeader("SCHOOL LUNCH BOX ONINE ORDERING SYSTEM");
 		System.out.println("1. USERS OPTIONS");
 		System.out.println("2. ORDER OPTIONS ");
 		System.out.println("3. PAYMENT METHOD OPTIONS");
@@ -486,7 +486,7 @@ public class C206_CaseStudy {
 			} else if (option == OPTION_VIEW) {
 				viewAllVendors(vendorList);
 			} else if (option == OPTION_DELETE) {
-				deleteVendor(vendorList);
+				inputVendorId(vendorList);
 			} else if (option == OPTION_QUIT) {
 				System.out.println("RETURNING TO MAIN MENU!");
 			} else {
@@ -506,7 +506,7 @@ public class C206_CaseStudy {
 		
 		// TOMIN-------------------RETRIEVE ALL VENDORS FROM VendorList IN ORDER TO
 		// VIEW IT-----------------------------------
-		public static String retrieveAllvendors(ArrayList<Vendor> vendorList) {
+		public static String retrieveAllVendors(ArrayList<Vendor> vendorList) {
 			String output = "";
 
 			for (int i = 0; i < vendorList.size(); i++) {
@@ -552,13 +552,13 @@ public class C206_CaseStudy {
 		public static void viewAllVendors(ArrayList<Vendor> vendorList) {
 			C206_CaseStudy.setHeader("VENDOR LIST");
 			String output = String.format("%-10s %-20s %-20s %-10s\n", "VENDOR ID", "VENDOR NAME", "MOBILE NUMBER", "EMAIL");
-			output += retrieveAllvendors(vendorList);
+			output += retrieveAllVendors(vendorList);
 			System.out.println(output);
 		}
 
 		// TOMIN------------------------DELETE AN EXSITING VENDOR FROM
 		// LIST---------------------------------
-		public static boolean inputVendorId(ArrayList<Vendor> vendorList, String VendorId) {
+		public static boolean deleteVendorID (ArrayList<Vendor> vendorList, String VendorId) {
 			boolean isDeleted = false;
 
 			for (int i = 0; i < vendorList.size(); i++) {
@@ -570,10 +570,10 @@ public class C206_CaseStudy {
 			return isDeleted;
 		}
 
-		public static void deleteVendor(ArrayList<Vendor> vendorList) {
+		public static void inputVendorId(ArrayList<Vendor> vendorList) {
 			C206_CaseStudy.viewAllVendors(vendorList);
 			String VendorId = Helper.readString("Enter the Vendor ID you wish to delete > ");
-			Boolean isDeleted = inputVendorId(vendorList, VendorId);
+			Boolean isDeleted = deleteVendorID(vendorList, VendorId);
 
 			if (isDeleted == false) {
 				System.out.println("No vendor ID found.");
