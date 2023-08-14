@@ -632,7 +632,7 @@ public class C206_CaseStudy {
 		Helper.line(80, "-");
 	}
 
-	// KELVIN --------- Ask user to enter Menu for AddUsersMethod
+	// KELVIN --------- Ask user to enter Menu for addMenuMethod
 	public static Menu InputMenuMethod() {
 		String name = Helper.readString("Enter Menu Name > ");
 		String description = Helper.readString("Enter Menu Description > ");
@@ -644,7 +644,7 @@ public class C206_CaseStudy {
 		return MN;
 	}
 
-	// KELVIN -------------------- Add new User Method to UserList
+	// KELVIN -------------------- Add new Menu Method to menuList
 	public static void addMenuMethod(ArrayList<Menu> menuList, Menu MN) {
 		String name = MN.getName();
 		String description = MN.getDescription();
@@ -666,7 +666,7 @@ public class C206_CaseStudy {
 
 	}
 
-	// KELVIN -------------------RETRIEVE ALL USER LIST FROM UserList IN ORDER TO
+	// KELVIN -------------------RETRIEVE ALL MENUS FROM menuList IN ORDER TO
 	// VIEW IT-----------------------------------
 	public static String viewAllMenu(ArrayList<Menu> menuList) {
 		String output = "";
@@ -678,8 +678,8 @@ public class C206_CaseStudy {
 		return output;
 	}
 
-	// KELVIN -----------------------VIEW ALL USER FROM THE
-	// USERLIST----------------------------------------
+	// KELVIN -----------------------VIEW ALL MENUS FROM THE
+	// MENULIST----------------------------------------
 	public static void viewAllMenus(ArrayList<Menu> menuList) {
 		C206_CaseStudy.setHeader("USER LIST");
 		String output = String.format("%-10s %-20s %-20s %-10s\n", "MENU ID", "MENU NAME", "STARTING PRICE",
@@ -688,8 +688,8 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
-	// KELVIN ------------------------DELETE AN EXSITING ORDER FROM
-	// USERLIST---------------------------------
+	// KELVIN ------------------------DELETE AN EXSITING MENU FROM
+	// MENULIST---------------------------------
 
 	public static boolean delMenuID(ArrayList<Menu> menuList, int Id) {
 		boolean isDeleted = false;
